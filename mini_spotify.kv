@@ -1,0 +1,112 @@
+# mini_spotify.kv
+
+# จัดการ Screen ทั้งหมด
+ScreenManager:
+    HomeScreen:
+        name: 'home'
+    PlayerScreen:
+        name: 'player'
+
+# --- UI หน้า Home ---
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: "Home - Music List"
+            font_size: '24sp'
+            size_hint_y: None
+            height: 50
+
+        # Scroll List สำหรับรายชื่อเพลง (Dummy)
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+                
+                # Song Card Widget แบบ Dummy (จำลองเพลง 5 เพลง)
+                Button:
+                    text: "Song 1: Shape of You"
+                    size_hint_y: None
+                    height: 80
+                    on_release: root.open_player(1)
+                Button:
+                    text: "Song 2: Blinding Lights"
+                    size_hint_y: None
+                    height: 80
+                    on_release: root.open_player(2)
+                Button:
+                    text: "Song 3: Stay"
+                    size_hint_y: None
+                    height: 80
+                    on_release: root.open_player(3)
+                Button:
+                    text: "Song 4: Peaches"
+                    size_hint_y: None
+                    height: 80
+                    on_release: root.open_player(4)
+                Button:
+                    text: "Song 5: Levitating"
+                    size_hint_y: None
+                    height: 80
+                    on_release: root.open_player(5)
+
+# --- UI หน้า Player ---
+<PlayerScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 20
+
+        # ปุ่มกลับ Home
+        Button:
+            text: "< Back to Home"
+            size_hint: (None, None)
+            size: (120, 50)
+            on_release: root.back_home()
+
+        # พื้นที่แสดงปกเพลง (Dummy Box)
+        Label:
+            text: "[Album Art Placeholder]"
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        # ชื่อเพลง
+        Label:
+            text: "Now Playing: Song Name"
+            font_size: '20sp'
+            size_hint_y: None
+            height: 50
+
+        # ปุ่มควบคุม (Prev, Play, Pause, Next)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 80
+            spacing: 20
+            
+            Button:
+                text: "|< Prev"
+                on_release: root.on_prev()
+            
+            Button:
+                text: "Play"
+                background_color: 0, 1, 0, 1  # สีเขียว
+                on_release: root.on_play()
+
+            Button:
+                text: "Pause"
+                background_color: 1, 0, 0, 1  # สีแดง
+                on_release: root.on_pause()
+
+            Button:
+                text: "Next >|"
+                on_release: root.on_next()
