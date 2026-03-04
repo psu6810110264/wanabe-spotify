@@ -1,18 +1,18 @@
+# main.py
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen
-from screens.login_screen import LoginScreen
+from kivy.lang import Builder
+from screen.home_screen import HomeScreen
+from screen.player_screen import PlayerScreen
 
+# โหลดไฟล์ .kv
+# (ถ้าไฟล์ kv ชื่อเดียวกับ App class เช่น MiniSpotifyApp -> mini_spotify.kv มันจะโหลดให้อัตโนมัติ
+# แต่เพื่อความชัวร์เราโหลดเองเลยก็ได้)
+# Builder.load_file('mini_spotify.kv') 
 
-class WindowManager(ScreenManager):
-    pass
-
-
-class WanabeSpotifyApp(App):
+class MiniSpotifyApp(App):
     def build(self):
-        sm = WindowManager()
-        sm.add_widget(LoginScreen(name="login"))
-        return sm
+        # ตัว ScreenManager ถูกกำหนดไว้ในไฟล์ .kv แล้ว
+        return Builder.load_file('mini_spotify.kv')
 
-
-if __name__ == "__main__":
-    WanabeSpotifyApp().run()
+if __name__ == '__main__':
+    MiniSpotifyApp().run()
