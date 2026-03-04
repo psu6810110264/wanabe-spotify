@@ -1,112 +1,265 @@
 # mini_spotify.kv
+<SongCard>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: dp(70)
+    padding: dp(10)
+    spacing: dp(15)
+    radius: [10,]
+    ripple_behavior: True
+    md_bg_color: 1, 1, 1, .05 
+    elevation: 0
 
-# จัดการ Screen ทั้งหมด
-ScreenManager:
-    HomeScreen:
-        name: 'home'
-    PlayerScreen:
-        name: 'player'
+    MDCard:
+        size_hint: None, None
+        size: dp(50), dp(50)
+        radius: [8,]
+        md_bg_color: .2, .1, .3, 1
+        pos_hint: {'center_y': .5}
+        MDIcon:
+            icon: root.image_icon
+            halign: "center"
+            pos_hint: {'center_y': .5}
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
 
-# --- UI หน้า Home ---
-<HomeScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        padding: 20
-        spacing: 10
+    MDBoxLayout:
+        orientation: "vertical"
+        alignment: "center_y"
+        spacing: dp(2)
+        MDLabel:
+            text: root.title
+            bold: True
+            font_style: "Subtitle1"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+        MDLabel:
+            text: root.artist
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: .8, .8, .8, 1
 
-        Label:
-            text: "Home - Music List"
-            font_size: '24sp'
-            size_hint_y: None
-            height: 50
+    MDBoxLayout:
+        orientation: "vertical"
+        alignment: "center_y"
+        size_hint_x: None
+        width: dp(40)
+        MDLabel:
+            text: root.rank
+            halign: "right"
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: .8, .6, 1, 1
+        MDLabel:
+            text: root.duration
+            halign: "right"
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: .8, .8, .8, 1
 
-        # Scroll List สำหรับรายชื่อเพลง (Dummy)
-        ScrollView:
-            BoxLayout:
+<RecommendCard>:
+    orientation: "vertical"
+    size_hint: None, None
+    size: dp(110), dp(150)
+    spacing: dp(5)
+    md_bg_color: 0, 0, 0, 0 
+    elevation: 0
+
+    MDCard:
+        size_hint: None, None
+        size: dp(110), dp(110)
+        radius: [15,]
+        md_bg_color: .3, .2, .1, 1
+        MDIcon:
+            icon: root.image_icon
+            halign: "center"
+            font_size: dp(50)
+            pos_hint: {'center_y': .5}
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+
+    MDLabel:
+        text: root.title
+        font_style: "Subtitle2"
+        theme_text_color: "Custom"
+        text_color: 1, 1, 1, 1
+        shorten: True
+        shorten_from: 'right'
+    MDLabel:
+        text: root.subtitle
+        font_style: "Caption"
+        theme_text_color: "Custom"
+        text_color: .7, .7, .7, 1
+        shorten: True
+
+MDScreen:
+    # พื้นหลังรวม
+    md_bg_color: .18, .05, .30, 1
+
+    MDBottomNavigation:
+        panel_color: .1, .02, .2, 1
+        text_color_active: 1, .4, .8, 1
+        text_color_normal: .6, .6, .6, 1
+        use_text: True
+
+        # --- TAB 1: หน้า Home (ใส่เนื้อหาไว้ในนี้!) ---
+        MDBottomNavigationItem:
+            name: 'screen 1'
+            text: 'Home'
+            icon: 'music-note'
+
+            # กล่องเนื้อหาหลัก (ต้องย่อหน้าเข้ามาอยู่ใต้ Item นี้)
+            MDBoxLayout:
                 orientation: 'vertical'
-                size_hint_y: None
-                height: self.minimum_height
-                spacing: 10
                 
-                # Song Card Widget แบบ Dummy (จำลองเพลง 5 เพลง)
-                Button:
-                    text: "Song 1: Shape of You"
-                    size_hint_y: None
-                    height: 80
-                    on_release: root.open_player(1)
-                Button:
-                    text: "Song 2: Blinding Lights"
-                    size_hint_y: None
-                    height: 80
-                    on_release: root.open_player(2)
-                Button:
-                    text: "Song 3: Stay"
-                    size_hint_y: None
-                    height: 80
-                    on_release: root.open_player(3)
-                Button:
-                    text: "Song 4: Peaches"
-                    size_hint_y: None
-                    height: 80
-                    on_release: root.open_player(4)
-                Button:
-                    text: "Song 5: Levitating"
-                    size_hint_y: None
-                    height: 80
-                    on_release: root.open_player(5)
+                # 1. Header & Search
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    adaptive_height: True
+                    padding: dp(20)
+                    spacing: dp(15)
 
-# --- UI หน้า Player ---
-<PlayerScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        padding: 30
-        spacing: 20
+                    MDBoxLayout:
+                        adaptive_height: True
+                        MDIcon:
+                            icon: "music-box"
+                            theme_text_color: "Custom"
+                            text_color: 1, .4, .8, 1
+                        MDLabel:
+                            text: "  My Music"
+                            font_style: "H6"
+                            bold: True
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+                        MDIcon:
+                            icon: "heart-outline"
+                            halign: "right"
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
 
-        # ปุ่มกลับ Home
-        Button:
-            text: "< Back to Home"
-            size_hint: (None, None)
-            size: (120, 50)
-            on_release: root.back_home()
+                    MDCard:
+                        size_hint_y: None
+                        height: dp(40)
+                        radius: [20,]
+                        md_bg_color: 1, 1, 1, .15
+                        padding: [dp(15), 0, dp(15), 0]
+                        elevation: 0
+                        
+                        MDIcon:
+                            icon: "magnify"
+                            pos_hint: {'center_y': .5}
+                            theme_text_color: "Hint"
+                        
+                        TextInput:
+                            hint_text: "Search..."
+                            background_color: 0, 0, 0, 0
+                            foreground_color: 1, 1, 1, 1
+                            cursor_color: 1, 1, 1, 1
+                            pos_hint: {'center_y': .5}
+                            font_size: "14sp"
+                            padding_y: [self.height / 2.0 - (self.line_height / 2.0), 0]
 
-        # พื้นที่แสดงปกเพลง (Dummy Box)
-        Label:
-            text: "[Album Art Placeholder]"
-            canvas.before:
-                Color:
-                    rgba: 0.2, 0.2, 0.2, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
+                # 2. Content Scroll
+                ScrollView:
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        adaptive_height: True
+                        padding: [dp(20), 0, dp(20), dp(20)]
+                        spacing: dp(20)
 
-        # ชื่อเพลง
-        Label:
-            text: "Now Playing: Song Name"
-            font_size: '20sp'
-            size_hint_y: None
-            height: 50
+                        MDBoxLayout:
+                            adaptive_height: True
+                            spacing: dp(5)
+                            MDIcon:
+                                icon: "chart-line-variant"
+                                theme_text_color: "Custom"
+                                text_color: 1, .4, .8, 1
+                            MDLabel:
+                                text: "Trending Now"
+                                bold: True
+                                theme_text_color: "Custom"
+                                text_color: 1, 1, 1, 1
 
-        # ปุ่มควบคุม (Prev, Play, Pause, Next)
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint_y: None
-            height: 80
-            spacing: 20
+                        MDBoxLayout:
+                            orientation: 'vertical'
+                            adaptive_height: True
+                            spacing: dp(10)
+
+                            SongCard:
+                                title: "Midnight Dreams"
+                                artist: "The Dreamers"
+                                rank: "#1"
+                                duration: "3:45"
+                                image_icon: "weather-night"
+
+                            SongCard:
+                                title: "Summer Vibes"
+                                artist: "Beach Boys Revival"
+                                rank: "#2"
+                                duration: "4:12"
+                                image_icon: "beach"
+
+                            SongCard:
+                                title: "Electric Soul"
+                                artist: "Neon Lights"
+                                rank: "#3"
+                                duration: "3:28"
+                                image_icon: "flash"
+
+                        MDLabel:
+                            text: "Recommended for You"
+                            bold: True
+                            adaptive_height: True
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+                            padding_y: dp(10)
+
+                        ScrollView:
+                            size_hint_y: None
+                            height: dp(160)
+                            do_scroll_x: True
+                            do_scroll_y: False
+                            bar_width: 0
+                            
+                            MDBoxLayout:
+                                adaptive_width: True
+                                spacing: dp(15)
+
+                                RecommendCard:
+                                    title: "Vintage Love"
+                                    subtitle: "Classic Revival"
+                                    image_icon: "disc"
+                                
+                                RecommendCard:
+                                    title: "Acoustic Set"
+                                    subtitle: "Indie Folk"
+                                    image_icon: "guitar-acoustic"
+
+                                RecommendCard:
+                                    title: "Deep Focus"
+                                    subtitle: "Instrumental"
+                                    image_icon: "brain"
+
+        # --- TAB 2: Search ---
+        MDBottomNavigationItem:
+            name: 'screen 2'
+            text: 'Search'
+            icon: 'magnify'
             
-            Button:
-                text: "|< Prev"
-                on_release: root.on_prev()
-            
-            Button:
-                text: "Play"
-                background_color: 0, 1, 0, 1  # สีเขียว
-                on_release: root.on_play()
+            MDLabel:
+                text: "Search Page"
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
 
-            Button:
-                text: "Pause"
-                background_color: 1, 0, 0, 1  # สีแดง
-                on_release: root.on_pause()
+        # --- TAB 3: Favorite ---
+        MDBottomNavigationItem:
+            name: 'screen 3'
+            text: 'Favorite'
+            icon: 'heart-outline'
 
-            Button:
-                text: "Next >|"
-                on_release: root.on_next()
+            MDLabel:
+                text: "Favorites Page"
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
