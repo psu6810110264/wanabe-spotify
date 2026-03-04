@@ -1,26 +1,77 @@
+# =========================
+# THEME / COMPONENTS
+# =========================
+<RoundedButton@Button>:
+    background_normal: ""
+    background_down: ""
+    border: (0,0,0,0)
+    color: 1,1,1,1
+    font_size: 16
+
+<RoundedCard@BoxLayout>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: 92
+    padding: [14, 12, 14, 12]
+    spacing: 12
+    canvas.before:
+        Color:
+            rgba: 0.16, 0.16, 0.18, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [18, 18, 18, 18]
+
+<PurpleIcon@Button>:
+    background_normal: ""
+    background_down: ""
+    border: (0,0,0,0)
+    size_hint: None, None
+    size: 58, 58
+    color: 1,1,1,1
+    font_size: 24
+    canvas.before:
+        Color:
+            rgba: 0.23, 0.10, 0.36, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [14, 14, 14, 14]
+
+# =========================
+# LOGIN (dark + green button)
+# =========================
 <LoginScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 40
-        spacing: 20
+        padding: 44
+        spacing: 16
 
         canvas.before:
             Color:
-                rgba: 0.08, 0.08, 0.08, 1
+                rgba: 0.06, 0.06, 0.07, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
+        Widget:
+            size_hint_y: None
+            height: 30
+
         Label:
             text: "Wanabe Spotify"
-            font_size: 36
+            font_size: 40
             bold: True
-            color: 1, 1, 1, 1
+            color: 1,1,1,1
 
         Label:
             text: "Login to your account"
-            font_size: 18
-            color: 0.9, 0.9, 0.9, 1
+            font_size: 16
+            color: 0.8,0.8,0.8,1
+
+        Widget:
+            size_hint_y: None
+            height: 10
 
         TextInput:
             id: username
@@ -28,6 +79,13 @@
             multiline: False
             size_hint_y: None
             height: 48
+            padding: [14, 14, 14, 14]
+            background_normal: ""
+            background_active: ""
+            background_color: 0.12,0.12,0.13,1
+            foreground_color: 1,1,1,1
+            hint_text_color: 0.6,0.6,0.6,1
+            cursor_color: 0.2, 0.9, 0.5, 1
 
         TextInput:
             id: password
@@ -36,40 +94,314 @@
             multiline: False
             size_hint_y: None
             height: 48
+            padding: [14, 14, 14, 14]
+            background_normal: ""
+            background_active: ""
+            background_color: 0.12,0.12,0.13,1
+            foreground_color: 1,1,1,1
+            hint_text_color: 0.6,0.6,0.6,1
+            cursor_color: 0.2, 0.9, 0.5, 1
 
-        Button:
+        RoundedButton:
             text: "Login"
             size_hint_y: None
-            height: 48
+            height: 52
+            background_color: 0.2, 0.9, 0.5, 1
             on_press: root.on_login()
 
-        Button:
+        RoundedButton:
             text: "Clear"
             size_hint_y: None
-            height: 48
+            height: 52
+            background_color: 0.22, 0.22, 0.25, 1
             on_press: root.clear_fields()
 
+        Label:
+            id: msg
+            text: ""
+            font_size: 14
+            color: 1, 0.4, 0.4, 1
 
+
+# =========================
+# HOME (match Member B: My Music + cards + bottom purple nav)
+# =========================
 <HomeScreen>:
     BoxLayout:
         orientation: "vertical"
-        padding: 40
-        spacing: 20
+        padding: [18, 18, 18, 0]
+        spacing: 14
 
         canvas.before:
             Color:
-                rgba: 0.06, 0.06, 0.06, 1
+                rgba: 0.06, 0.06, 0.07, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        Label:
-            text: "Home Screen"
-            font_size: 30
-            color: 1, 1, 1, 1
-
-        Button:
-            text: "Back to Login"
+        # top bar
+        BoxLayout:
             size_hint_y: None
-            height: 48
-            on_press: app.root.current = "login"
+            height: 56
+            padding: [6, 6, 6, 6]
+
+            Label:
+                text: "♪"
+                font_size: 26
+                size_hint_x: None
+                width: 40
+                color: 1, 0.35, 0.8, 1
+
+            Label:
+                text: "[b]My Music[/b]"
+                markup: True
+                font_size: 24
+                color: 1,1,1,1
+
+            Button:
+                text: "♡"
+                font_size: 24
+                size_hint_x: None
+                width: 60
+                background_normal: ""
+                background_down: ""
+                background_color: 0,0,0,0
+                color: 1,1,1,1
+                on_press: root.go_favorite()
+
+        # search bar (rounded)
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            padding: [14, 10, 14, 10]
+            canvas.before:
+                Color:
+                    rgba: 0.14, 0.14, 0.16, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [18, 18, 18, 18]
+
+            Label:
+                text: "🔍"
+                size_hint_x: None
+                width: 34
+                color: 0.7,0.7,0.7,1
+
+            TextInput:
+                id: search
+                hint_text: "Search..."
+                multiline: False
+                background_normal: ""
+                background_active: ""
+                background_color: 0,0,0,0
+                foreground_color: 1,1,1,1
+                hint_text_color: 0.6,0.6,0.6,1
+                cursor_color: 1, 0.35, 0.8, 1
+                on_text: root.on_search(self.text)
+
+        # scroll content
+        ScrollView:
+            do_scroll_x: False
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 14
+                padding: [0, 6, 0, 90]  # เผื่อ bottom nav
+
+                # Trending title
+                BoxLayout:
+                    size_hint_y: None
+                    height: 40
+                    spacing: 8
+
+                    Label:
+                        text: "↗"
+                        font_size: 20
+                        size_hint_x: None
+                        width: 28
+                        color: 1, 0.35, 0.8, 1
+
+                    Label:
+                        text: "[b]Trending Now[/b]"
+                        markup: True
+                        font_size: 18
+                        color: 1,1,1,1
+
+                # Trending cards
+                RoundedCard:
+                    PurpleIcon:
+                        text: "☾"
+                        on_press: root.open_player("Midnight Dreams")
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        Label:
+                            text: "[b]Midnight Dreams[/b]"
+                            markup: True
+                            color: 1,1,1,1
+                            halign: "left"
+                            text_size: self.size
+                        Label:
+                            text: "The Dreamers"
+                            color: 0.75,0.75,0.75,1
+                            halign: "left"
+                            text_size: self.size
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        size_hint_x: None
+                        width: 70
+                        Label:
+                            text: "#1"
+                            color: 0.8, 0.6, 1, 1
+                        Label:
+                            text: "3:45"
+                            color: 0.8,0.8,0.8,1
+
+                RoundedCard:
+                    PurpleIcon:
+                        text: "☂"
+                        on_press: root.open_player("Summer Vibes")
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        Label:
+                            text: "[b]Summer Vibes[/b]"
+                            markup: True
+                            color: 1,1,1,1
+                            halign: "left"
+                            text_size: self.size
+                        Label:
+                            text: "Beach Boys Revival"
+                            color: 0.75,0.75,0.75,1
+                            halign: "left"
+                            text_size: self.size
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        size_hint_x: None
+                        width: 70
+                        Label:
+                            text: "#2"
+                            color: 0.8, 0.6, 1, 1
+                        Label:
+                            text: "4:12"
+                            color: 0.8,0.8,0.8,1
+
+                RoundedCard:
+                    PurpleIcon:
+                        text: "⚡"
+                        on_press: root.open_player("Electric Soul")
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        Label:
+                            text: "[b]Electric Soul[/b]"
+                            markup: True
+                            color: 1,1,1,1
+                            halign: "left"
+                            text_size: self.size
+                        Label:
+                            text: "Neon Lights"
+                            color: 0.75,0.75,0.75,1
+                            halign: "left"
+                            text_size: self.size
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        size_hint_x: None
+                        width: 70
+                        Label:
+                            text: "#3"
+                            color: 0.8, 0.6, 1, 1
+                        Label:
+                            text: "3:28"
+                            color: 0.8,0.8,0.8,1
+
+                # Recommended
+                Label:
+                    text: "[b]Recommended for You[/b]"
+                    markup: True
+                    font_size: 18
+                    color: 1,1,1,1
+                    size_hint_y: None
+                    height: 40
+                    halign: "left"
+                    text_size: self.size
+
+                # simple recommendation tiles (3)
+                BoxLayout:
+                    size_hint_y: None
+                    height: 110
+                    spacing: 12
+
+                    Button:
+                        text: "●"
+                        font_size: 36
+                        background_normal: ""
+                        background_down: ""
+                        background_color: 0.35, 0.22, 0.10, 1
+
+                    Button:
+                        text: "♪"
+                        font_size: 36
+                        background_normal: ""
+                        background_down: ""
+                        background_color: 0.35, 0.22, 0.10, 1
+
+                    Button:
+                        text: "✿"
+                        font_size: 36
+                        background_normal: ""
+                        background_down: ""
+                        background_color: 0.35, 0.22, 0.10, 1
+
+        # bottom purple nav
+        BoxLayout:
+            size_hint_y: None
+            height: 78
+            padding: [18, 12, 18, 12]
+            spacing: 18
+            canvas.before:
+                Color:
+                    rgba: 0.15, 0.06, 0.26, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [22, 22, 0, 0]
+
+            Button:
+                text: "♪\nHome"
+                halign: "center"
+                valign: "middle"
+                text_size: self.size
+                background_normal: ""
+                background_down: ""
+                background_color: 0,0,0,0
+                color: 1, 0.35, 0.8, 1
+                on_press: root.go_home()
+
+            Button:
+                text: "⌕\nSearch"
+                halign: "center"
+                valign: "middle"
+                text_size: self.size
+                background_normal: ""
+                background_down: ""
+                background_color: 0,0,0,0
+                color: 0.75,0.75,0.75,1
+                on_press: root.go_search()
+
+            Button:
+                text: "♡\nFavorite"
+                halign: "center"
+                valign: "middle"
+                text_size: self.size
+                background_normal: ""
+                background_down: ""
+                background_color: 0,0,0,0
+                color: 0.75,0.75,0.75,1
+                on_press: root.go_favorite()
