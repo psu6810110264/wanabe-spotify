@@ -1,0 +1,75 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 40
+        spacing: 20
+
+        canvas.before:
+            Color:
+                rgba: 0.08, 0.08, 0.08, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Wanabe Spotify"
+            font_size: 36
+            bold: True
+            color: 1, 1, 1, 1
+
+        Label:
+            text: "Login to your account"
+            font_size: 18
+            color: 0.9, 0.9, 0.9, 1
+
+        TextInput:
+            id: username
+            hint_text: "Username"
+            multiline: False
+            size_hint_y: None
+            height: 48
+
+        TextInput:
+            id: password
+            hint_text: "Password"
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 48
+
+        Button:
+            text: "Login"
+            size_hint_y: None
+            height: 48
+            on_press: root.on_login()
+
+        Button:
+            text: "Clear"
+            size_hint_y: None
+            height: 48
+            on_press: root.clear_fields()
+
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 40
+        spacing: 20
+
+        canvas.before:
+            Color:
+                rgba: 0.06, 0.06, 0.06, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Home Screen"
+            font_size: 30
+            color: 1, 1, 1, 1
+
+        Button:
+            text: "Back to Login"
+            size_hint_y: None
+            height: 48
+            on_press: app.root.current = "login"
