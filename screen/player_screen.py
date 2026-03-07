@@ -1,5 +1,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
+from data_store import add_favorite as save_favorite
 
 
 class PlayerScreen(Screen):
@@ -61,5 +62,6 @@ class PlayerScreen(Screen):
         self.manager.current = "home"
 
     def add_favorite(self):
-        """ตอนนี้เป็นเวอร์ชันทดสอบก่อน"""
-        print(f"[Callback] add_favorite triggered: {self.song_title}")
+        """เพิ่มเพลงปัจจุบันเข้า favorite"""
+        save_favorite(self.song_title)
+        print(f"[Favorite Added] {self.song_title}")

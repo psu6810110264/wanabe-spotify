@@ -592,29 +592,14 @@ RootWidget:
             halign: "left"
             text_size: self.size
 
-        Button:
-            text: "Midnight Dreams"
-            background_normal: ""
-            background_down: ""
-            background_color: 0.12, 0.12, 0.14, 1
-            color: 1, 1, 1, 1
-            on_release: root.open_player("song_1")
+        ScrollView:
 
-        Button:
-            text: "Electric Soul"
-            background_normal: ""
-            background_down: ""
-            background_color: 0.12, 0.12, 0.14, 1
-            color: 1, 1, 1, 1
-            on_release: root.open_player("song_3")
-
-        Button:
-            text: "Summer Vibes"
-            background_normal: ""
-            background_down: ""
-            background_color: 0.12, 0.12, 0.14, 1
-            color: 1, 1, 1, 1
-            on_release: root.open_player("song_2")
+            BoxLayout:
+                id: favorite_list
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
 
         Widget:
 
