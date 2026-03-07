@@ -37,3 +37,8 @@ class HomeScreen(Screen):
     def logout(self):
         print("[Callback] logout triggered")
         self.manager.current = "login"
+
+    def open_player(self, song_id):
+        player_screen = self.manager.get_screen("player")
+        player_screen.set_song(song_id)
+        self.manager.current = "player"
