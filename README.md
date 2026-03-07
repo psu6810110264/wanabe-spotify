@@ -173,3 +173,11 @@ update README documentation
 - add project features  
 - add installation guide  
 - add project structure
+
+---
+
+## 🎨 UI Improvements
+
+- Improved Player controls layout
+- Better icon alignment
+- Cleaner UI spacing
