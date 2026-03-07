@@ -1,4 +1,5 @@
 #:kivy 2.3.0
+#:import dp kivy.metrics.dp
 
 RootWidget:
     current: "login"
@@ -9,58 +10,174 @@ RootWidget:
     FavoriteScreen:
 
 
+<SongCard>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: dp(76)
+    padding: [dp(10), dp(10), dp(10), dp(10)]
+    spacing: dp(12)
+    radius: [10,]
+    ripple_behavior: True
+    md_bg_color: 1, 1, 1, .05
+    elevation: 0
+
+    MDCard:
+        size_hint: None, None
+        size: dp(50), dp(50)
+        radius: [8,]
+        md_bg_color: .2, .1, .3, 1
+        pos_hint: {"center_y": .5}
+
+        MDLabel:
+            text: "♪"
+            halign: "center"
+            valign: "middle"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            font_style: "H6"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        size_hint_x: 1
+        spacing: dp(2)
+        padding: [0, dp(4), 0, dp(4)]
+        pos_hint: {"center_y": .5}
+
+        MDLabel:
+            text: root.title
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            bold: True
+            size_hint_y: None
+            height: dp(24)
+            shorten: True
+            shorten_from: "right"
+
+        MDLabel:
+            text: root.artist
+            theme_text_color: "Custom"
+            text_color: .78, .78, .84, 1
+            size_hint_y: None
+            height: dp(20)
+            font_style: "Caption"
+            shorten: True
+            shorten_from: "right"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        size_hint_x: None
+        width: dp(50)
+        spacing: dp(2)
+        padding: [0, dp(4), 0, dp(4)]
+        pos_hint: {"center_y": .5}
+
+        MDLabel:
+            text: root.rank
+            halign: "right"
+            theme_text_color: "Custom"
+            text_color: .85, .65, 1, 1
+            size_hint_y: None
+            height: dp(20)
+            font_style: "Caption"
+
+        MDLabel:
+            text: root.duration
+            halign: "right"
+            theme_text_color: "Custom"
+            text_color: .8, .8, .8, 1
+            size_hint_y: None
+            height: dp(20)
+            font_style: "Caption"
+
+
+<RecommendCard>:
+    orientation: "vertical"
+    size_hint: None, None
+    size: dp(110), dp(150)
+    spacing: dp(5)
+    md_bg_color: 0, 0, 0, 0
+    elevation: 0
+
+    MDCard:
+        size_hint: None, None
+        size: dp(110), dp(110)
+        radius: [15,]
+        md_bg_color: .3, .2, .1, 1
+
+        MDIcon:
+            icon: root.image_icon
+            halign: "center"
+            font_size: dp(50)
+            pos_hint: {'center_y': .5}
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+
+    MDLabel:
+        text: root.title
+        font_style: "Subtitle2"
+        theme_text_color: "Custom"
+        text_color: 1, 1, 1, 1
+        shorten: True
+        shorten_from: "right"
+
+    MDLabel:
+        text: root.subtitle
+        font_style: "Caption"
+        theme_text_color: "Custom"
+        text_color: .7, .7, .7, 1
+        shorten: True
+
+
 <LoginScreen>:
     name: "login"
+    md_bg_color: .07, .04, .14, 1
 
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
-        padding: [30, 40, 30, 30]
-        spacing: 18
-
-        canvas.before:
-            Color:
-                rgba: 0.03, 0.03, 0.05, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        padding: [dp(28), dp(40), dp(28), dp(28)]
+        spacing: dp(14)
 
         Widget:
             size_hint_y: None
-            height: 20
+            height: dp(15)
 
-        Label:
+        MDLabel:
             text: "MiniSpotify"
-            font_size: 30
+            font_style: "H4"
             bold: True
-            color: 1, 1, 1, 1
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
             size_hint_y: None
-            height: 55
+            height: dp(55)
 
-        Label:
+        MDLabel:
             text: "Use admin / 123456 to sign in"
-            font_size: 16
-            color: 0.75, 0.75, 0.8, 1
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: .78, .78, .85, 1
             size_hint_y: None
-            height: 30
+            height: dp(28)
 
         Widget:
             size_hint_y: None
-            height: 10
+            height: dp(8)
 
-        BoxLayout:
+        MDCard:
             orientation: "vertical"
-            spacing: 14
+            padding: dp(16)
+            spacing: dp(14)
             size_hint_y: None
-            height: 170
+            height: dp(210)
+            radius: [18,]
+            elevation: 0
+            md_bg_color: 1, 1, 1, .06
 
-            Label:
+            MDLabel:
                 text: "Username"
-                color: 1, 1, 1, 1
-                font_size: 15
-                halign: "left"
-                text_size: self.size
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
                 size_hint_y: None
-                height: 25
+                height: dp(22)
 
             TextInput:
                 id: username
@@ -68,22 +185,20 @@ RootWidget:
                 multiline: False
                 background_normal: ""
                 background_active: ""
-                background_color: 0.18, 0.18, 0.20, 1
+                background_color: 1, 1, 1, .08
                 foreground_color: 1, 1, 1, 1
-                hint_text_color: 0.65, 0.65, 0.7, 1
-                cursor_color: 1, 0.35, 0.75, 1
-                padding: [16, 12, 16, 12]
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(12), dp(16), dp(12)]
                 size_hint_y: None
-                height: 48
+                height: dp(46)
 
-            Label:
+            MDLabel:
                 text: "Password"
-                color: 1, 1, 1, 1
-                font_size: 15
-                halign: "left"
-                text_size: self.size
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
                 size_hint_y: None
-                height: 25
+                height: dp(22)
 
             TextInput:
                 id: password
@@ -92,41 +207,37 @@ RootWidget:
                 multiline: False
                 background_normal: ""
                 background_active: ""
-                background_color: 0.18, 0.18, 0.20, 1
+                background_color: 1, 1, 1, .08
                 foreground_color: 1, 1, 1, 1
-                hint_text_color: 0.65, 0.65, 0.7, 1
-                cursor_color: 1, 0.35, 0.75, 1
-                padding: [16, 12, 16, 12]
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(12), dp(16), dp(12)]
                 size_hint_y: None
-                height: 48
+                height: dp(46)
 
-        Label:
+        MDLabel:
             id: msg
             text: ""
-            color: 1, 0.45, 0.75, 1
-            font_size: 14
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 1, .45, .75, 1
             size_hint_y: None
-            height: 28
+            height: dp(26)
 
-        Button:
+        MDRaisedButton:
             text: "Login"
+            md_bg_color: .78, .32, .72, 1
+            text_color: 1, 1, 1, 1
             size_hint_y: None
-            height: 50
-            background_normal: ""
-            background_down: ""
-            background_color: 0.35, 0.05, 0.55, 1
-            color: 1, 1, 1, 1
-            bold: True
+            height: dp(46)
             on_release: root.on_login()
 
-        Button:
+        MDRectangleFlatButton:
             text: "Clear"
+            text_color: 1, 1, 1, 1
+            line_color: .65, .55, .78, 1
             size_hint_y: None
-            height: 50
-            background_normal: ""
-            background_down: ""
-            background_color: 0.20, 0.20, 0.24, 1
-            color: 1, 1, 1, 1
+            height: dp(46)
             on_release: root.clear_fields()
 
         Widget:
@@ -134,509 +245,809 @@ RootWidget:
 
 <HomeScreen>:
     name: "home"
+    md_bg_color: .10, .06, .17, 1
 
-    BoxLayout:
-        orientation: "vertical"
+    MDBottomNavigation:
+        panel_color: .08, .04, .13, 1
+        text_color_active: 1, .63, .85, 1
+        text_color_normal: .55, .55, .65, 1
+        use_text: True
 
-        canvas.before:
-            Color:
-                rgba: 0.03, 0.03, 0.05, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        MDBottomNavigationItem:
+            name: "home_tab"
+            text: "Home"
+            icon: "home-variant"
 
-        BoxLayout:
-            orientation: "vertical"
-            padding: [24, 28, 24, 16]
-            spacing: 16
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: [dp(18), dp(16), dp(18), dp(12)]
+                spacing: dp(14)
 
-            BoxLayout:
-                size_hint_y: None
-                height: 44
-                spacing: 8
+                MDBoxLayout:
+                    adaptive_height: True
+                    spacing: dp(8)
 
-                Label:
-                    text: "My Music"
-                    font_size: 28
-                    bold: True
-                    color: 1, 1, 1, 1
-                    halign: "left"
-                    valign: "middle"
-                    text_size: self.size
+                    MDIcon:
+                        icon: "music-box-multiple"
+                        theme_text_color: "Custom"
+                        text_color: 1, .63, .85, 1
 
-                Label:
-                    text: "Favorite"
-                    font_size: 14
-                    color: 1, 0.45, 0.75, 1
-                    size_hint_x: None
-                    width: 80
-                    halign: "right"
-                    valign: "middle"
-                    text_size: self.size
+                    MDLabel:
+                        text: "Now Trending"
+                        font_style: "H6"
+                        bold: True
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
 
-                Button:
-                    text: "Logout"
-                    size_hint_x: None
-                    width: 90
-                    background_normal: ""
-                    background_down: ""
-                    background_color: 0.30, 0.05, 0.45, 1
-                    color: 1, 1, 1, 1
-                    on_release: app.root.logout()
+                    Widget:
 
-            TextInput:
-                hint_text: "Search..."
-                multiline: False
-                background_normal: ""
-                background_active: ""
-                background_color: 0.20, 0.20, 0.24, 1
-                foreground_color: 1, 1, 1, 1
-                hint_text_color: 0.65, 0.65, 0.70, 1
-                padding: [16, 14, 16, 14]
-                size_hint_y: None
-                height: 48
+                    MDIconButton:
+                        icon: "heart-multiple"
+                        theme_text_color: "Custom"
+                        text_color: .87, .87, .95, 1
+                        on_release: root.go_favorite()
 
-            ScrollView:
-                do_scroll_x: False
-                bar_width: 6
+                    MDIconButton:
+                        icon: "logout"
+                        theme_text_color: "Custom"
+                        text_color: .87, .87, .95, 1
+                        on_release: app.root.logout()
 
-                BoxLayout:
-                    orientation: "vertical"
+                MDCard:
                     size_hint_y: None
-                    height: self.minimum_height
-                    spacing: 14
-                    padding: [0, 6, 0, 12]
+                    height: dp(44)
+                    radius: [22,]
+                    elevation: 0
+                    md_bg_color: 1, 1, 1, .08
+                    padding: [dp(14), 0, dp(8), 0]
 
-                    Label:
-                        text: "Trending Now"
-                        font_size: 22
+                    MDBoxLayout:
+                        spacing: dp(8)
+
+                        MDIcon:
+                            icon: "magnify"
+                            pos_hint: {"center_y": .5}
+                            theme_text_color: "Custom"
+                            text_color: .75, .75, .82, 1
+
+                        TextInput:
+                            hint_text: "Search songs, artists, playlists"
+                            background_color: 0, 0, 0, 0
+                            foreground_color: 1, 1, 1, 1
+                            hint_text_color: .65, .65, .75, 1
+                            cursor_color: 1, 1, 1, 1
+                            multiline: False
+                            pos_hint: {"center_y": .5}
+
+                ScrollView:
+                    bar_width: 0
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        adaptive_height: True
+                        spacing: dp(12)
+
+                        MDCard:
+                            size_hint_y: None
+                            height: dp(130)
+                            radius: [22,]
+                            elevation: 0
+                            md_bg_color: .18, .12, .30, 1
+                            padding: dp(14)
+
+                            MDBoxLayout:
+                                orientation: "vertical"
+                                spacing: dp(6)
+
+                                MDLabel:
+                                    text: "Fresh Picks"
+                                    font_style: "H6"
+                                    theme_text_color: "Custom"
+                                    text_color: 1, 1, 1, 1
+                                    bold: True
+
+                                MDLabel:
+                                    text: "Tap any track to open player"
+                                    font_style: "Caption"
+                                    theme_text_color: "Custom"
+                                    text_color: .82, .82, .90, 1
+
+                                Widget:
+
+                                MDBoxLayout:
+                                    adaptive_height: True
+                                    spacing: dp(8)
+
+                                    MDRoundFlatIconButton:
+                                        text: "Chill"
+                                        icon: "weather-night"
+                                        size_hint: None, None
+                                        size: dp(95), dp(34)
+                                        text_color: 1, 1, 1, 1
+                                        line_color: .85, .65, 1, 1
+
+                                    MDRoundFlatIconButton:
+                                        text: "Pop"
+                                        icon: "music"
+                                        size_hint: None, None
+                                        size: dp(85), dp(34)
+                                        text_color: 1, 1, 1, 1
+                                        line_color: .85, .65, 1, 1
+
+                                    MDRoundFlatIconButton:
+                                        text: "Focus"
+                                        icon: "brain"
+                                        size_hint: None, None
+                                        size: dp(95), dp(34)
+                                        text_color: 1, 1, 1, 1
+                                        line_color: .85, .65, 1, 1
+
+                        SongCard:
+                            title: "Midnight Dreams"
+                            artist: "The Dreamers"
+                            rank: "#1"
+                            duration: "3:45"
+                            image_icon: "weather-night"
+                            on_release: root.open_player(self.title, self.artist, self.duration)
+
+                        SongCard:
+                            title: "Summer Vibes"
+                            artist: "Beach Boys Revival"
+                            rank: "#2"
+                            duration: "4:12"
+                            image_icon: "beach"
+                            on_release: root.open_player(self.title, self.artist, self.duration)
+
+                        SongCard:
+                            title: "Electric Soul"
+                            artist: "Neon Lights"
+                            rank: "#3"
+                            duration: "3:28"
+                            image_icon: "flash"
+                            on_release: root.open_player(self.title, self.artist, self.duration)
+
+                        SongCard:
+                            title: "Ocean Radio"
+                            artist: "Blue Echo"
+                            rank: "#4"
+                            duration: "2:56"
+                            image_icon: "radio"
+                            on_release: root.open_player(self.title, self.artist, self.duration)
+
+                        MDLabel:
+                            text: "Recommended for You"
+                            font_style: "Subtitle1"
+                            theme_text_color: "Custom"
+                            text_color: .92, .92, .96, 1
+                            size_hint_y: None
+                            height: dp(28)
+
+                        ScrollView:
+                            size_hint_y: None
+                            height: dp(165)
+                            do_scroll_y: False
+                            bar_width: 0
+
+                            MDBoxLayout:
+                                adaptive_width: True
+                                spacing: dp(10)
+
+                                RecommendCard:
+                                    title: "Album 1"
+                                    subtitle: "Late Night Mood"
+                                    image_icon: "album"
+
+                                RecommendCard:
+                                    title: "Album 2"
+                                    subtitle: "Summer Drive"
+                                    image_icon: "disc"
+
+                                RecommendCard:
+                                    title: "Album 3"
+                                    subtitle: "Lo-fi Focus"
+                                    image_icon: "music-circle"
+
+        MDBottomNavigationItem:
+            name: "search_tab"
+            text: "Search"
+            icon: "magnify"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: [dp(18), dp(16), dp(18), dp(16)]
+                spacing: dp(14)
+
+                MDLabel:
+                    text: "Search"
+                    font_style: "H6"
+                    bold: True
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+
+                MDCard:
+                    size_hint_y: None
+                    height: dp(46)
+                    radius: [23,]
+                    elevation: 0
+                    md_bg_color: 1, 1, 1, .10
+                    padding: [dp(14), 0, dp(12), 0]
+
+                    MDBoxLayout:
+                        spacing: dp(8)
+
+                        MDIcon:
+                            icon: "magnify"
+                            pos_hint: {"center_y": .5}
+                            theme_text_color: "Custom"
+                            text_color: .78, .78, .86, 1
+
+                        TextInput:
+                            hint_text: "What do you want to listen to?"
+                            background_color: 0, 0, 0, 0
+                            foreground_color: 1, 1, 1, 1
+                            hint_text_color: .66, .66, .75, 1
+                            multiline: False
+                            cursor_color: 1, 1, 1, 1
+                            pos_hint: {"center_y": .5}
+
+                MDLabel:
+                    text: "Browse Genres"
+                    font_style: "Subtitle1"
+                    theme_text_color: "Custom"
+                    text_color: .92, .92, .96, 1
+
+                MDGridLayout:
+                    cols: 2
+                    spacing: dp(10)
+                    adaptive_height: True
+
+                    MDCard:
+                        size_hint_y: None
+                        height: dp(94)
+                        radius: [18,]
+                        elevation: 0
+                        md_bg_color: .37, .16, .20, 1
+                        on_release: root.go_search()
+
+                        MDLabel:
+                            text: "Pop"
+                            bold: True
+                            halign: "center"
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+
+                    MDCard:
+                        size_hint_y: None
+                        height: dp(94)
+                        radius: [18,]
+                        elevation: 0
+                        md_bg_color: .15, .31, .20, 1
+                        on_release: root.go_search()
+
+                        MDLabel:
+                            text: "Indie"
+                            bold: True
+                            halign: "center"
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+
+                    MDCard:
+                        size_hint_y: None
+                        height: dp(94)
+                        radius: [18,]
+                        elevation: 0
+                        md_bg_color: .17, .21, .40, 1
+                        on_release: root.go_search()
+
+                        MDLabel:
+                            text: "EDM"
+                            bold: True
+                            halign: "center"
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+
+                    MDCard:
+                        size_hint_y: None
+                        height: dp(94)
+                        radius: [18,]
+                        elevation: 0
+                        md_bg_color: .39, .28, .14, 1
+                        on_release: root.go_search()
+
+                        MDLabel:
+                            text: "Acoustic"
+                            bold: True
+                            halign: "center"
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+
+        MDBottomNavigationItem:
+            name: "my_music_tab"
+            text: "My Music"
+            icon: "library-music"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: [dp(18), dp(16), dp(18), dp(16)]
+                spacing: dp(14)
+
+                MDBoxLayout:
+                    adaptive_height: True
+
+                    MDLabel:
+                        text: "My Music"
+                        font_style: "H6"
                         bold: True
-                        color: 1, 1, 1, 1
-                        size_hint_y: None
-                        height: 36
-                        halign: "left"
-                        valign: "middle"
-                        text_size: self.size
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
 
-                    Button:
-                        text: "1   Midnight Dreams\n    The Dreamers                            #1   3:45"
-                        size_hint_y: None
-                        height: 92
-                        background_normal: ""
-                        background_down: ""
-                        background_color: 0.11, 0.11, 0.14, 1
-                        color: 1, 1, 1, 1
-                        font_size: 18
-                        halign: "left"
-                        valign: "middle"
-                        text_size: self.width - 24, self.height
-                        on_release: root.open_player("song_1")
+                    MDIconButton:
+                        icon: "magnify"
+                        theme_text_color: "Custom"
+                        text_color: .85, .85, .92, 1
+                        on_release: root.go_search()
 
-                    Button:
-                        text: "2   Summer Vibes\n    Beach Boys Revival                     #2   4:12"
-                        size_hint_y: None
-                        height: 92
-                        background_normal: ""
-                        background_down: ""
-                        background_color: 0.11, 0.11, 0.14, 1
-                        color: 1, 1, 1, 1
-                        font_size: 18
-                        halign: "left"
-                        valign: "middle"
-                        text_size: self.width - 24, self.height
-                        on_release: root.open_player("song_2")
+                    MDIconButton:
+                        icon: "heart"
+                        theme_text_color: "Custom"
+                        text_color: .85, .85, .92, 1
+                        on_release: root.go_favorite()
 
-                    Button:
-                        text: "3   Electric Soul\n    Neon Lights                              #3   3:28"
-                        size_hint_y: None
-                        height: 92
-                        background_normal: ""
-                        background_down: ""
-                        background_color: 0.11, 0.11, 0.14, 1
-                        color: 1, 1, 1, 1
-                        font_size: 18
-                        halign: "left"
-                        valign: "middle"
-                        text_size: self.width - 24, self.height
-                        on_release: root.open_player("song_3")
+                MDCard:
+                    size_hint_y: None
+                    height: dp(110)
+                    radius: [24,]
+                    elevation: 0
+                    md_bg_color: .18, .16, .35, 1
+                    padding: [dp(14), dp(12), dp(14), dp(12)]
 
-                    Label:
-                        text: "Recommended for You"
-                        font_size: 22
-                        bold: True
-                        color: 1, 1, 1, 1
-                        size_hint_y: None
-                        height: 36
-                        halign: "left"
-                        valign: "middle"
-                        text_size: self.size
+                    MDBoxLayout:
+                        spacing: dp(12)
 
-                    GridLayout:
-                        cols: 3
-                        spacing: 14
-                        size_hint_y: None
-                        height: 130
+                        MDCard:
+                            size_hint: None, None
+                            size: dp(54), dp(54)
+                            radius: [27,]
+                            elevation: 0
+                            md_bg_color: .31, .22, .53, 1
 
-                        Button:
-                            text: "Album 1"
-                            background_normal: ""
-                            background_down: ""
-                            background_color: 0.38, 0.23, 0.08, 1
-                            color: 1, 1, 1, 1
+                            MDIcon:
+                                icon: "account"
+                                halign: "center"
+                                theme_text_color: "Custom"
+                                text_color: 1, 1, 1, 1
 
-                        Button:
-                            text: "Album 2"
-                            background_normal: ""
-                            background_down: ""
-                            background_color: 0.38, 0.23, 0.08, 1
-                            color: 1, 1, 1, 1
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            spacing: dp(2)
 
-                        Button:
-                            text: "Album 3"
-                            background_normal: ""
-                            background_down: ""
-                            background_color: 0.38, 0.23, 0.08, 1
-                            color: 1, 1, 1, 1
+                            MDLabel:
+                                text: "Your Library"
+                                font_style: "Subtitle1"
+                                bold: True
+                                theme_text_color: "Custom"
+                                text_color: 1, 1, 1, 1
 
-        BoxLayout:
-            size_hint_y: None
-            height: 72
-            padding: [8, 8, 8, 8]
-            spacing: 8
+                            MDLabel:
+                                text: "28 songs  |  6 playlists"
+                                font_style: "Caption"
+                                theme_text_color: "Custom"
+                                text_color: .85, .85, .93, 1
 
-            canvas.before:
-                Color:
-                    rgba: 0.14, 0.00, 0.25, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
+                            MDBoxLayout:
+                                adaptive_height: True
+                                spacing: dp(8)
 
-            Button:
-                text: "Home"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.45, 0.40, 0.55, 1
-                color: 1, 0.4, 0.8, 1
-                bold: True
-                on_release: root.go_home()
+                                MDRoundFlatIconButton:
+                                    text: "Downloaded"
+                                    icon: "download"
+                                    size_hint: None, None
+                                    size: dp(140), dp(34)
+                                    text_color: 1, 1, 1, 1
+                                    line_color: .85, .65, 1, 1
 
-            Button:
-                text: "Search"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.14, 0.00, 0.25, 1
-                color: 0.85, 0.85, 0.85, 1
-                on_release: root.go_search()
+                                MDRoundFlatIconButton:
+                                    text: "Liked"
+                                    icon: "heart"
+                                    size_hint: None, None
+                                    size: dp(95), dp(34)
+                                    text_color: 1, 1, 1, 1
+                                    line_color: .85, .65, 1, 1
 
-            Button:
-                text: "Favorite"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.14, 0.00, 0.25, 1
-                color: 0.85, 0.85, 0.85, 1
-                on_release: root.go_favorite()
+                ScrollView:
+                    bar_width: 0
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        adaptive_height: True
+                        spacing: dp(10)
+
+                        MDLabel:
+                            text: "Quick Picks"
+                            font_style: "Subtitle1"
+                            theme_text_color: "Custom"
+                            text_color: .90, .90, .97, 1
+
+                        MDCard:
+                            size_hint_y: None
+                            height: dp(58)
+                            radius: [16,]
+                            elevation: 0
+                            md_bg_color: .23, .14, .27, 1
+                            padding: [dp(12), 0, dp(10), 0]
+                            on_release: root.open_player("Pixel Heart", "Nova Kids", "2:48")
+
+                            MDBoxLayout:
+                                spacing: dp(8)
+
+                                MDIcon:
+                                    icon: "star-circle"
+                                    pos_hint: {"center_y": .5}
+                                    theme_text_color: "Custom"
+                                    text_color: 1, .78, .35, 1
+
+                                MDLabel:
+                                    text: "Most Played This Week"
+                                    theme_text_color: "Custom"
+                                    text_color: 1, 1, 1, 1
+                                    pos_hint: {"center_y": .5}
+
+                                MDIcon:
+                                    icon: "play"
+                                    pos_hint: {"center_y": .5}
+                                    theme_text_color: "Custom"
+                                    text_color: .92, .92, 1, 1
+
+                        MDLabel:
+                            text: "Recently Played"
+                            font_style: "Subtitle1"
+                            theme_text_color: "Custom"
+                            text_color: .90, .90, .97, 1
+
+                        SongCard:
+                            title: "Moonlight Avenue"
+                            artist: "Sora"
+                            rank: "01"
+                            duration: "3:10"
+                            image_icon: "music-note-outline"
+                            on_release: root.open_player(self.title, self.artist, self.duration)
+
+                        SongCard:
+                            title: "Deep Blue"
+                            artist: "Astra"
+                            rank: "02"
+                            duration: "4:05"
+                            image_icon: "waves"
+                            on_release: root.open_player(self.title, self.artist, self.duration)
+
+                        SongCard:
+                            title: "Pixel Heart"
+                            artist: "Nova Kids"
+                            rank: "03"
+                            duration: "2:48"
+                            image_icon: "heart"
+                            on_release: root.open_player(self.title, self.artist, self.duration)
+
+                        SongCard:
+                            title: "Red Skyline"
+                            artist: "Yuna"
+                            rank: "04"
+                            duration: "3:32"
+                            image_icon: "city-variant-outline"
+                            on_release: root.open_player(self.title, self.artist, self.duration)
 
 
 <PlayerScreen>:
     name: "player"
+    md_bg_color: .07, .04, .14, 1
 
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
-        padding: [30, 40, 30, 30]
-        spacing: 20
+        padding: [dp(18), dp(18), dp(18), dp(18)]
+        spacing: dp(16)
 
-        canvas.before:
-            Color:
-                rgba: 0.03, 0.03, 0.05, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        MDBoxLayout:
+            adaptive_height: True
 
-        Label:
-            text: "Now Playing"
-            font_size: 28
-            bold: True
-            color: 1, 1, 1, 1
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                on_release: root.back_home()
+
+            Widget:
+
+            MDIconButton:
+                icon: "heart-outline"
+                theme_text_color: "Custom"
+                text_color: .95, .68, .82, 1
+                on_release: root.add_favorite()
+
+            MDIconButton:
+                icon: "dots-horizontal"
+                theme_text_color: "Custom"
+                text_color: .9, .9, .95, 1
+
+        MDCard:
             size_hint_y: None
-            height: 50
+            height: dp(300)
+            radius: [32,]
+            elevation: 0
+            md_bg_color: .20, .13, .34, 1
+            padding: dp(24)
+
+            MDBoxLayout:
+                orientation: "vertical"
+                spacing: dp(14)
+
+                Widget:
+
+                MDIcon:
+                    icon: "album"
+                    halign: "center"
+                    font_size: "128sp"
+                    theme_text_color: "Custom"
+                    text_color: 1, .63, .85, 1
+
+                MDLabel:
+                    text: "MINI SPOTIFY"
+                    halign: "center"
+                    font_style: "Button"
+                    theme_text_color: "Custom"
+                    text_color: .86, .86, .95, 1
+
+                Widget:
+
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height: True
+            spacing: dp(2)
+
+            MDLabel:
+                text: root.song_title
+                font_style: "H6"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                shorten: True
+
+            MDLabel:
+                text: root.song_artist
+                font_style: "Subtitle2"
+                theme_text_color: "Custom"
+                text_color: .77, .77, .84, 1
+                shorten: True
+
+        MDSlider:
+            min: 0
+            max: 100
+            value: root.progress
+            hint: False
+            on_value: root.on_seek(self.value)
+
+        MDBoxLayout:
+            adaptive_height: True
+
+            MDLabel:
+                text: root.current_time
+                font_style: "Caption"
+                theme_text_color: "Custom"
+                text_color: .72, .72, .80, 1
+
+            MDLabel:
+                text: root.song_duration
+                font_style: "Caption"
+                halign: "right"
+                theme_text_color: "Custom"
+                text_color: .72, .72, .80, 1
 
         Widget:
-            size_hint_y: None
-            height: 10
 
-        Button:
-            text: "Song Cover"
-            size_hint_y: None
-            height: 200
-            background_normal: ""
-            background_down: ""
-            background_color: 0.25, 0.10, 0.35, 1
-            color: 1, 1, 1, 1
-            bold: True
+        MDBoxLayout:
+            adaptive_height: True
+            spacing: dp(16)
+            padding: [dp(6), 0, dp(6), 0]
 
-        Label:
-            text: root.song_title
-            font_size: 20
-            color: 0.85, 0.85, 0.9, 1
-            size_hint_y: None
-            height: 30
-
-        Label:
-            text: root.artist_name
-            font_size: 16
-            color: 1, 0.45, 0.75, 1
-            size_hint_y: None
-            height: 25
-
-        Button:
-            text: "W Favorite"
-            size_hint_y: None
-            height: 50
-            background_normal: ""
-            background_down: ""
-            background_color: 0.35, 0.05, 0.55, 1
-            color: 1, 1, 1, 1
-            bold: True
-            on_release: root.add_favorite()
-
-        BoxLayout:
-            size_hint_y: None
-            height: 60
-            spacing: 12
-
-            Button:
-                text: "Prev"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.20, 0.20, 0.24, 1
-                color: 1, 1, 1, 1
+            MDIconButton:
+                icon: "skip-previous"
+                user_font_size: "42sp"
+                theme_text_color: "Custom"
+                text_color: .93, .93, 1, 1
                 on_release: root.on_prev()
 
-            Button:
-                text: "Play"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.35, 0.05, 0.55, 1
-                color: 1, 1, 1, 1
-                on_release: root.on_play()
+            MDRoundFlatIconButton:
+                text: "Pause" if root.is_playing else "Play"
+                icon: "pause" if root.is_playing else "play"
+                md_bg_color: 1, .63, .85, 1
+                text_color: .12, .08, .18, 1
+                line_color: 1, .63, .85, 1
+                on_release: root.toggle_play_pause()
 
-            Button:
-                text: "Pause"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.25, 0.10, 0.35, 1
-                color: 1, 1, 1, 1
-                on_release: root.on_pause()
-
-            Button:
-                text: "Next"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.20, 0.20, 0.24, 1
-                color: 1, 1, 1, 1
+            MDIconButton:
+                icon: "skip-next"
+                user_font_size: "42sp"
+                theme_text_color: "Custom"
+                text_color: .93, .93, 1, 1
                 on_release: root.on_next()
-
-        Button:
-            text: "Back to Home"
-            size_hint_y: None
-            height: 50
-            background_normal: ""
-            background_down: ""
-            background_color: 0.20, 0.20, 0.24, 1
-            color: 1, 1, 1, 1
-            on_release: root.back_home()
-
-        Widget:
 
 
 <SearchScreen>:
     name: "search"
+    md_bg_color: .10, .06, .17, 1
 
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
-        padding: [24, 28, 24, 16]
-        spacing: 16
+        padding: [dp(18), dp(16), dp(18), dp(16)]
+        spacing: dp(14)
 
-        canvas.before:
-            Color:
-                rgba: 0.03, 0.03, 0.05, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        MDBoxLayout:
+            adaptive_height: True
 
-        Label:
-            text: "Search"
-            font_size: 28
-            bold: True
-            color: 1, 1, 1, 1
-            size_hint_y: None
-            height: 44
-            halign: "left"
-            text_size: self.size
-
-        TextInput:
-            hint_text: "Search songs, artists, albums..."
-            multiline: False
-            background_normal: ""
-            background_active: ""
-            background_color: 0.18, 0.18, 0.20, 1
-            foreground_color: 1, 1, 1, 1
-            hint_text_color: 0.65, 0.65, 0.7, 1
-            padding: [16, 12, 16, 12]
-            size_hint_y: None
-            height: 48
-
-        Label:
-            text: "Popular Searches"
-            font_size: 22
-            bold: True
-            color: 1, 1, 1, 1
-            size_hint_y: None
-            height: 36
-            halign: "left"
-            text_size: self.size
-
-        Button:
-            text: "Chill Mix"
-            background_normal: ""
-            background_down: ""
-            background_color: 0.12, 0.12, 0.14, 1
-            color: 1, 1, 1, 1
-
-        Button:
-            text: "Night Drive"
-            background_normal: ""
-            background_down: ""
-            background_color: 0.12, 0.12, 0.14, 1
-            color: 1, 1, 1, 1
-
-        Button:
-            text: "Acoustic Mood"
-            background_normal: ""
-            background_down: ""
-            background_color: 0.12, 0.12, 0.14, 1
-            color: 1, 1, 1, 1
-
-        Widget:
-
-        BoxLayout:
-            size_hint_y: None
-            height: 72
-            padding: [8, 8, 8, 8]
-            spacing: 8
-
-            canvas.before:
-                Color:
-                    rgba: 0.14, 0.00, 0.25, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-
-            Button:
-                text: "Home"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.14, 0.00, 0.25, 1
-                color: 0.85, 0.85, 0.85, 1
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
                 on_release: root.go_home()
 
-            Button:
+            MDLabel:
                 text: "Search"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.45, 0.40, 0.55, 1
-                color: 1, 0.4, 0.8, 1
+                font_style: "H6"
                 bold: True
-                on_release: root.go_search()
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
 
-            Button:
-                text: "Favorite"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.14, 0.00, 0.25, 1
-                color: 0.85, 0.85, 0.85, 1
+            MDIconButton:
+                icon: "heart-outline"
+                theme_text_color: "Custom"
+                text_color: .95, .68, .82, 1
                 on_release: root.go_favorite()
+
+        MDCard:
+            size_hint_y: None
+            height: dp(46)
+            radius: [23,]
+            elevation: 0
+            md_bg_color: 1, 1, 1, .10
+            padding: [dp(14), 0, dp(12), 0]
+
+            MDBoxLayout:
+                spacing: dp(8)
+
+                MDIcon:
+                    icon: "magnify"
+                    pos_hint: {"center_y": .5}
+                    theme_text_color: "Custom"
+                    text_color: .78, .78, .86, 1
+
+                TextInput:
+                    hint_text: "Search songs, artists, albums..."
+                    background_color: 0, 0, 0, 0
+                    foreground_color: 1, 1, 1, 1
+                    hint_text_color: .66, .66, .75, 1
+                    multiline: False
+                    cursor_color: 1, 1, 1, 1
+                    pos_hint: {"center_y": .5}
+
+        MDLabel:
+            text: "Popular Searches"
+            font_style: "Subtitle1"
+            theme_text_color: "Custom"
+            text_color: .92, .92, .96, 1
+            size_hint_y: None
+            height: dp(28)
+
+        MDCard:
+            size_hint_y: None
+            height: dp(56)
+            radius: [16,]
+            elevation: 0
+            md_bg_color: 1, 1, 1, .06
+            padding: [dp(14), 0, dp(10), 0]
+            on_release: root.open_player("Chill Mix", "Various Artists", "3:20")
+
+            MDBoxLayout:
+                MDIcon:
+                    icon: "weather-night"
+                    theme_text_color: "Custom"
+                    text_color: 1, .63, .85, 1
+                    pos_hint: {"center_y": .5}
+                MDLabel:
+                    text: "Chill Mix"
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+                    pos_hint: {"center_y": .5}
+
+        MDCard:
+            size_hint_y: None
+            height: dp(56)
+            radius: [16,]
+            elevation: 0
+            md_bg_color: 1, 1, 1, .06
+            padding: [dp(14), 0, dp(10), 0]
+            on_release: root.open_player("Night Drive", "City Lights", "4:00")
+
+            MDBoxLayout:
+                MDIcon:
+                    icon: "car"
+                    theme_text_color: "Custom"
+                    text_color: 1, .63, .85, 1
+                    pos_hint: {"center_y": .5}
+                MDLabel:
+                    text: "Night Drive"
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+                    pos_hint: {"center_y": .5}
+
+        MDCard:
+            size_hint_y: None
+            height: dp(56)
+            radius: [16,]
+            elevation: 0
+            md_bg_color: 1, 1, 1, .06
+            padding: [dp(14), 0, dp(10), 0]
+            on_release: root.open_player("Acoustic Mood", "Soft Strings", "2:58")
+
+            MDBoxLayout:
+                MDIcon:
+                    icon: "guitar-acoustic"
+                    theme_text_color: "Custom"
+                    text_color: 1, .63, .85, 1
+                    pos_hint: {"center_y": .5}
+                MDLabel:
+                    text: "Acoustic Mood"
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+                    pos_hint: {"center_y": .5}
+
+        Widget:
 
 
 <FavoriteScreen>:
     name: "favorite"
+    md_bg_color: .10, .06, .17, 1
 
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
-        padding: [24, 28, 24, 16]
-        spacing: 16
+        padding: [dp(18), dp(16), dp(18), dp(16)]
+        spacing: dp(14)
 
-        canvas.before:
-            Color:
-                rgba: 0.03, 0.03, 0.05, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        MDBoxLayout:
+            adaptive_height: True
 
-        Label:
-            text: "Favorite"
-            font_size: 28
-            bold: True
-            color: 1, 1, 1, 1
-            size_hint_y: None
-            height: 44
-            halign: "left"
-            text_size: self.size
-
-        Label:
-            text: "Your liked songs"
-            font_size: 16
-            color: 0.75, 0.75, 0.8, 1
-            size_hint_y: None
-            height: 24
-            halign: "left"
-            text_size: self.size
-
-        ScrollView:
-
-            BoxLayout:
-                id: favorite_list
-                orientation: "vertical"
-                size_hint_y: None
-                height: self.minimum_height
-                spacing: 10
-
-        Widget:
-
-        BoxLayout:
-            size_hint_y: None
-            height: 72
-            padding: [8, 8, 8, 8]
-            spacing: 8
-
-            canvas.before:
-                Color:
-                    rgba: 0.14, 0.00, 0.25, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-
-            Button:
-                text: "Home"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.14, 0.00, 0.25, 1
-                color: 0.85, 0.85, 0.85, 1
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
                 on_release: root.go_home()
 
-            Button:
-                text: "Search"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.14, 0.00, 0.25, 1
-                color: 0.85, 0.85, 0.85, 1
+            MDLabel:
+                text: "Favorite"
+                font_style: "H6"
+                bold: True
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+
+            MDIconButton:
+                icon: "magnify"
+                theme_text_color: "Custom"
+                text_color: .95, .68, .82, 1
                 on_release: root.go_search()
 
-            Button:
-                text: "Favorite"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.45, 0.40, 0.55, 1
-                color: 1, 0.4, 0.8, 1
-                bold: True
-                on_release: root.go_favorite()
+        MDLabel:
+            text: "Your liked songs"
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: .75, .75, .82, 1
+            size_hint_y: None
+            height: dp(22)
+
+        ScrollView:
+            bar_width: 0
+
+            MDBoxLayout:
+                id: favorite_list
+                orientation: "vertical"
+                adaptive_height: True
+                spacing: dp(10)
