@@ -1,39 +1,49 @@
-from kivy.uix.screenmanager import Screen
-from kivy.uix.button import Button
+from kivymd.uix.screen import MDScreen
+from kivymd.uix.label import MDLabel
+
 from data_store import get_favorites
+from screen.home_screen import SongCard
 
 
-class FavoriteScreen(Screen):
+class FavoriteScreen(MDScreen):
+    def on_pre_enter(self, *args):
+        self.refresh_favorites()
 
-    def on_pre_enter(self):
-        self.load_favorites()
+    def refresh_favorites(self):
+        container = self.ids.favorite_list
+        container.clear_widgets()
 
-    def load_favorites(self):
+        favorite_items = get_favorites()
 
-        layout = self.ids.favorite_list
-        layout.clear_widgets()
-
-        favorites = get_favorites()
-
-        if not favorites:
-            layout.add_widget(Button(
+        if not favorite_items:
+            empty_label = MDLabel(
                 text="No favorite songs yet",
+                halign="center",
+                theme_text_color="Custom",
+                text_color=(1, 1, 1, 1),
                 size_hint_y=None,
-                height=80
-            ))
+                height=50,
+            )
+            container.add_widget(empty_label)
             return
 
-        for song in favorites:
-
-            btn = Button(
-                text=song,
-                size_hint_y=None,
-                height=80,
-                background_normal="",
-                background_color=(0.12,0.12,0.14,1)
+        for index, item in enumerate(favorite_items, start=1):
+            card = SongCard(
+                title=item["title"],
+                artist=item["artist"],
+                rank=f"{index:02d}",
+                duration=item["duration"],
+                image_icon="heart"
             )
+            card.bind(
+                on_release=lambda instance, t=item["title"], a=item["artist"], d=item["duration"]: self.open_player(t, a, d)
+            )
+            container.add_widget(card)
 
-            layout.add_widget(btn)
+    def open_player(self, title, artist, duration):
+        player = self.manager.get_screen("player")
+        player.load_song(title, artist, duration)
+        self.manager.current = "player"
 
     def go_home(self):
         self.manager.current = "home"
@@ -42,4 +52,5 @@ class FavoriteScreen(Screen):
         self.manager.current = "search"
 
     def go_favorite(self):
-        pass
+        self.refresh_favorites()
+        self.manager.current = "favorite"
