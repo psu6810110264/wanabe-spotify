@@ -3,13 +3,14 @@ from kivy.core.audio import SoundLoader
 from kivy.properties import StringProperty, NumericProperty, BooleanProperty
 from kivymd.uix.screen import MDScreen
 
-from data_store import toggle_favorite, is_favorite, get_song_file
+from data_store import toggle_favorite, is_favorite, get_song_file, get_song_lyrics
 
 
 class PlayerScreen(MDScreen):
     song_title = StringProperty("No Song")
     song_artist = StringProperty("Unknown Artist")
     song_duration = StringProperty("0:00")
+    song_lyrics = StringProperty("No lyrics available for this song yet.")
 
     current_time = StringProperty("0:00")
     progress = NumericProperty(0)
@@ -28,6 +29,7 @@ class PlayerScreen(MDScreen):
         self.song_title = title
         self.song_artist = artist
         self.song_duration = duration
+        self.song_lyrics = get_song_lyrics(title, artist)
         self.current_time = "0:00"
         self.progress = 0
         self.is_playing = False
