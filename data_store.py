@@ -2,6 +2,7 @@ import os
 import json
 
 favorites = []
+current_user = ""
 
 ACCOUNTS_FILE = "accounts.json"
 DEFAULT_ACCOUNTS = {
@@ -63,6 +64,20 @@ def register_account(username, password):
 def authenticate_account(username, password):
     user = username.strip()
     return _accounts.get(user) == password
+
+
+def set_current_user(username):
+    global current_user
+    current_user = username.strip()
+
+
+def get_current_user():
+    return current_user
+
+
+def clear_current_user():
+    global current_user
+    current_user = ""
 
 
 def add_favorite(song_title, artist_name="Unknown Artist", duration="0:00"):

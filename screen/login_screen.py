@@ -1,6 +1,6 @@
 from kivy.uix.screenmanager import Screen
 
-from data_store import authenticate_account
+from data_store import authenticate_account, set_current_user
 
 
 class LoginScreen(Screen):
@@ -32,6 +32,7 @@ class LoginScreen(Screen):
             self.ids.msg.text = "Invalid username or password."
             return
 
+        set_current_user(u)
         self.ids.msg.text = "Login success!"
         self.manager.current = "home"
 

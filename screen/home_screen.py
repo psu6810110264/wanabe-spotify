@@ -33,3 +33,8 @@ class HomeScreen(MDScreen):
         favorite_screen = self.manager.get_screen("favorite")
         favorite_screen.refresh_favorites()
         self.manager.current = "favorite"
+
+    def go_profile(self):
+        profile_screen = self.manager.get_screen("profile")
+        profile_screen.refresh_profile()
+        self.manager.current = "profile"
