@@ -189,3 +189,14 @@ Search screen now includes
 - Popular search list
 - Search input UI
 - Navigation to player screen
+
+## 📊 Project Information
+
+MiniSpotify is a lightweight Kivy music player created for learning purposes.
+
+Features demonstrated in this project:
+
+- ScreenManager navigation
+- KV language UI design
+- Favorite song system
+- Basic audio playback
