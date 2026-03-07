@@ -1,11 +1,13 @@
 #:kivy 2.3.0
 
 RootWidget:
+    current: "login"
     LoginScreen:
     HomeScreen:
     PlayerScreen:
     SearchScreen:
     FavoriteScreen:
+
 
 <LoginScreen>:
     name: "login"
@@ -143,359 +145,337 @@ RootWidget:
                 pos: self.pos
                 size: self.size
 
-        ScrollView:
-            do_scroll_x: False
+        BoxLayout:
+            orientation: "vertical"
+            padding: [24, 28, 24, 16]
+            spacing: 16
 
             BoxLayout:
-                orientation: "vertical"
                 size_hint_y: None
-                height: self.minimum_height
-                padding: [25, 35, 25, 20]
-                spacing: 18
+                height: 44
+                spacing: 8
+
+                Label:
+                    text: "My Music"
+                    font_size: 28
+                    bold: True
+                    color: 1, 1, 1, 1
+                    halign: "left"
+                    valign: "middle"
+                    text_size: self.size
+
+                Label:
+                    text: "Favorite"
+                    font_size: 14
+                    color: 1, 0.45, 0.75, 1
+                    size_hint_x: None
+                    width: 80
+                    halign: "right"
+                    valign: "middle"
+                    text_size: self.size
+
+            TextInput:
+                hint_text: "Search..."
+                multiline: False
+                background_normal: ""
+                background_active: ""
+                background_color: 0.20, 0.20, 0.24, 1
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: 0.65, 0.65, 0.70, 1
+                padding: [16, 14, 16, 14]
+                size_hint_y: None
+                height: 48
+
+            ScrollView:
+                do_scroll_x: False
+                bar_width: 6
 
                 BoxLayout:
+                    orientation: "vertical"
                     size_hint_y: None
-                    height: 50
-                    spacing: 10
-
-                    Label:
-                        text: "♫"
-                        font_size: 28
-                        color: 1, 0.4, 0.8, 1
-                        size_hint_x: None
-                        width: 40
-
-                    Label:
-                        text: "My Music"
-                        font_size: 28
-                        bold: True
-                        color: 1, 1, 1, 1
-                        halign: "left"
-                        valign: "middle"
-                        text_size: self.size
-
-                    Label:
-                        text: "♡"
-                        font_size: 26
-                        color: 1, 1, 1, 1
-                        size_hint_x: None
-                        width: 40
-                        halign: "right"
-                        valign: "middle"
-                        text_size: self.size
-
-                TextInput:
-                    hint_text: "Search..."
-                    multiline: False
-                    background_normal: ""
-                    background_active: ""
-                    background_color: 0.20, 0.20, 0.22, 1
-                    foreground_color: 1, 1, 1, 1
-                    hint_text_color: 0.60, 0.60, 0.65, 1
-                    padding: [18, 14, 18, 14]
-                    size_hint_y: None
-                    height: 54
-
-                BoxLayout:
-                    size_hint_y: None
-                    height: 35
-                    spacing: 8
-
-                    Label:
-                        text: "↗"
-                        font_size: 22
-                        color: 1, 0.4, 0.8, 1
-                        size_hint_x: None
-                        width: 25
+                    height: self.minimum_height
+                    spacing: 14
+                    padding: [0, 6, 0, 12]
 
                     Label:
                         text: "Trending Now"
                         font_size: 22
                         bold: True
                         color: 1, 1, 1, 1
+                        size_hint_y: None
+                        height: 36
                         halign: "left"
+                        valign: "middle"
                         text_size: self.size
 
-                Button:
-                    size_hint_y: None
-                    height: 90
-                    background_normal: ""
-                    background_down: ""
-                    background_color: 0, 0, 0, 0
-                    on_release: root.open_player("song_1")
-
-                    BoxLayout:
-                        padding: [12, 12, 12, 12]
-                        spacing: 12
-
-                        canvas.before:
-                            Color:
-                                rgba: 0.11, 0.11, 0.13, 1
-                            RoundedRectangle:
-                                pos: self.pos
-                                size: self.size
-                                radius: [18]
-
-                        Label:
-                            text: "☾"
-                            font_size: 28
-                            color: 1, 1, 1, 1
-                            size_hint_x: None
-                            width: 60
-
-                            canvas.before:
-                                Color:
-                                    rgba: 0.24, 0.08, 0.35, 1
-                                RoundedRectangle:
-                                    pos: self.x + 2, self.y + 8
-                                    size: self.width - 4, self.height - 16
-                                    radius: [12]
-
-                        BoxLayout:
-                            orientation: "vertical"
-                            spacing: 4
-
-                            Label:
-                                text: "Midnight Dreams"
-                                color: 1, 1, 1, 1
-                                bold: True
-                                font_size: 18
-                                halign: "left"
-                                valign: "middle"
-                                text_size: self.size
-
-                            Label:
-                                text: "The Dreamers"
-                                color: 0.75, 0.75, 0.78, 1
-                                font_size: 15
-                                halign: "left"
-                                valign: "middle"
-                                text_size: self.size
-
-                        BoxLayout:
-                            orientation: "vertical"
-                            size_hint_x: None
-                            width: 60
-                            spacing: 4
-
-                            Label:
-                                text: "#1"
-                                color: 0.85, 0.45, 1, 1
-                                font_size: 16
-                                halign: "right"
-                                valign: "middle"
-                                text_size: self.size
-
-                            Label:
-                                text: "3:45"
-                                color: 0.80, 0.80, 0.85, 1
-                                font_size: 15
-                                halign: "right"
-                                valign: "middle"
-                                text_size: self.size
-
-                Button:
-                    size_hint_y: None
-                    height: 90
-                    background_normal: ""
-                    background_down: ""
-                    background_color: 0, 0, 0, 0
-                    on_release: root.open_player("song_2")
-
-                    BoxLayout:
-                        padding: [12, 12, 12, 12]
-                        spacing: 12
-
-                        canvas.before:
-                            Color:
-                                rgba: 0.11, 0.11, 0.13, 1
-                            RoundedRectangle:
-                                pos: self.pos
-                                size: self.size
-                                radius: [18]
-
-                        Label:
-                            text: "☂"
-                            font_size: 28
-                            color: 1, 1, 1, 1
-                            size_hint_x: None
-                            width: 60
-
-                            canvas.before:
-                                Color:
-                                    rgba: 0.24, 0.08, 0.35, 1
-                                RoundedRectangle:
-                                    pos: self.x + 2, self.y + 8
-                                    size: self.width - 4, self.height - 16
-                                    radius: [12]
-
-                        BoxLayout:
-                            orientation: "vertical"
-                            spacing: 4
-
-                            Label:
-                                text: "Summer Vibes"
-                                color: 1, 1, 1, 1
-                                bold: True
-                                font_size: 18
-                                halign: "left"
-                                valign: "middle"
-                                text_size: self.size
-
-                            Label:
-                                text: "Beach Boys Revival"
-                                color: 0.75, 0.75, 0.78, 1
-                                font_size: 15
-                                halign: "left"
-                                valign: "middle"
-                                text_size: self.size
-
-                        BoxLayout:
-                            orientation: "vertical"
-                            size_hint_x: None
-                            width: 60
-                            spacing: 4
-
-                            Label:
-                                text: "#2"
-                                color: 0.85, 0.45, 1, 1
-                                font_size: 16
-                                halign: "right"
-                                valign: "middle"
-                                text_size: self.size
-
-                            Label:
-                                text: "4:12"
-                                color: 0.80, 0.80, 0.85, 1
-                                font_size: 15
-                                halign: "right"
-                                valign: "middle"
-                                text_size: self.size
-
-                Button:
-                    size_hint_y: None
-                    height: 90
-                    background_normal: ""
-                    background_down: ""
-                    background_color: 0, 0, 0, 0
-                    on_release: root.open_player("song_3")
-
-                    BoxLayout:
-                        padding: [12, 12, 12, 12]
-                        spacing: 12
-
-                        canvas.before:
-                            Color:
-                                rgba: 0.11, 0.11, 0.13, 1
-                            RoundedRectangle:
-                                pos: self.pos
-                                size: self.size
-                                radius: [18]
-
-                        Label:
-                            text: "⚡"
-                            font_size: 28
-                            color: 1, 1, 1, 1
-                            size_hint_x: None
-                            width: 60
-
-                            canvas.before:
-                                Color:
-                                    rgba: 0.24, 0.08, 0.35, 1
-                                RoundedRectangle:
-                                    pos: self.x + 2, self.y + 8
-                                    size: self.width - 4, self.height - 16
-                                    radius: [12]
-
-                        BoxLayout:
-                            orientation: "vertical"
-                            spacing: 4
-
-                            Label:
-                                text: "Electric Soul"
-                                color: 1, 1, 1, 1
-                                bold: True
-                                font_size: 18
-                                halign: "left"
-                                valign: "middle"
-                                text_size: self.size
-
-                            Label:
-                                text: "Neon Lights"
-                                color: 0.75, 0.75, 0.78, 1
-                                font_size: 15
-                                halign: "left"
-                                valign: "middle"
-                                text_size: self.size
-
-                        BoxLayout:
-                            orientation: "vertical"
-                            size_hint_x: None
-                            width: 60
-                            spacing: 4
-
-                            Label:
-                                text: "#3"
-                                color: 0.85, 0.45, 1, 1
-                                font_size: 16
-                                halign: "right"
-                                valign: "middle"
-                                text_size: self.size
-
-                            Label:
-                                text: "3:28"
-                                color: 0.80, 0.80, 0.85, 1
-                                font_size: 15
-                                halign: "right"
-                                valign: "middle"
-                                text_size: self.size
-
-                Label:
-                    text: "Recommended for You"
-                    font_size: 22
-                    bold: True
-                    color: 1, 1, 1, 1
-                    size_hint_y: None
-                    height: 35
-                    halign: "left"
-                    text_size: self.size
-
-                GridLayout:
-                    cols: 3
-                    spacing: 14
-                    size_hint_y: None
-                    height: 150
-
                     Button:
-                        text: "Album 1"
+                        size_hint_y: None
+                        height: 92
                         background_normal: ""
                         background_down: ""
-                        background_color: 0.38, 0.23, 0.08, 1
-                        color: 1, 1, 1, 1
+                        background_color: 0.11, 0.11, 0.14, 1
+                        on_release: root.open_player("song_1")
+
+                        BoxLayout:
+                            orientation: "horizontal"
+                            padding: [12, 12, 12, 12]
+                            spacing: 12
+
+                            Label:
+                                text: "M"
+                                size_hint_x: None
+                                width: 52
+                                font_size: 20
+                                bold: True
+                                color: 1, 1, 1, 1
+                                halign: "center"
+                                valign: "middle"
+                                text_size: self.size
+
+                                canvas.before:
+                                    Color:
+                                        rgba: 0.24, 0.08, 0.35, 1
+                                    RoundedRectangle:
+                                        pos: self.x + 4, self.y + 8
+                                        size: self.width - 8, self.height - 16
+                                        radius: [12]
+
+                            BoxLayout:
+                                orientation: "vertical"
+                                spacing: 2
+
+                                Label:
+                                    text: "Midnight Dreams"
+                                    color: 1, 1, 1, 1
+                                    font_size: 18
+                                    bold: True
+                                    halign: "left"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                                Label:
+                                    text: "The Dreamers"
+                                    color: 0.75, 0.75, 0.80, 1
+                                    font_size: 14
+                                    halign: "left"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                            BoxLayout:
+                                orientation: "vertical"
+                                size_hint_x: None
+                                width: 56
+                                spacing: 2
+
+                                Label:
+                                    text: "#1"
+                                    color: 1, 0.45, 0.75, 1
+                                    font_size: 15
+                                    halign: "right"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                                Label:
+                                    text: "3:45"
+                                    color: 0.80, 0.80, 0.85, 1
+                                    font_size: 14
+                                    halign: "right"
+                                    valign: "middle"
+                                    text_size: self.size
 
                     Button:
-                        text: "Album 2"
+                        size_hint_y: None
+                        height: 92
                         background_normal: ""
                         background_down: ""
-                        background_color: 0.38, 0.23, 0.08, 1
-                        color: 1, 1, 1, 1
+                        background_color: 0.11, 0.11, 0.14, 1
+                        on_release: root.open_player("song_2")
+
+                        BoxLayout:
+                            orientation: "horizontal"
+                            padding: [12, 12, 12, 12]
+                            spacing: 12
+
+                            Label:
+                                text: "S"
+                                size_hint_x: None
+                                width: 52
+                                font_size: 20
+                                bold: True
+                                color: 1, 1, 1, 1
+                                halign: "center"
+                                valign: "middle"
+                                text_size: self.size
+
+                                canvas.before:
+                                    Color:
+                                        rgba: 0.24, 0.08, 0.35, 1
+                                    RoundedRectangle:
+                                        pos: self.x + 4, self.y + 8
+                                        size: self.width - 8, self.height - 16
+                                        radius: [12]
+
+                            BoxLayout:
+                                orientation: "vertical"
+                                spacing: 2
+
+                                Label:
+                                    text: "Summer Vibes"
+                                    color: 1, 1, 1, 1
+                                    font_size: 18
+                                    bold: True
+                                    halign: "left"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                                Label:
+                                    text: "Beach Boys Revival"
+                                    color: 0.75, 0.75, 0.80, 1
+                                    font_size: 14
+                                    halign: "left"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                            BoxLayout:
+                                orientation: "vertical"
+                                size_hint_x: None
+                                width: 56
+                                spacing: 2
+
+                                Label:
+                                    text: "#2"
+                                    color: 1, 0.45, 0.75, 1
+                                    font_size: 15
+                                    halign: "right"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                                Label:
+                                    text: "4:12"
+                                    color: 0.80, 0.80, 0.85, 1
+                                    font_size: 14
+                                    halign: "right"
+                                    valign: "middle"
+                                    text_size: self.size
 
                     Button:
-                        text: "Album 3"
+                        size_hint_y: None
+                        height: 92
                         background_normal: ""
                         background_down: ""
-                        background_color: 0.38, 0.23, 0.08, 1
-                        color: 1, 1, 1, 1
+                        background_color: 0.11, 0.11, 0.14, 1
+                        on_release: root.open_player("song_3")
 
-                Widget:
-                    size_hint_y: None
-                    height: 12
+                        BoxLayout:
+                            orientation: "horizontal"
+                            padding: [12, 12, 12, 12]
+                            spacing: 12
+
+                            Label:
+                                text: "E"
+                                size_hint_x: None
+                                width: 52
+                                font_size: 20
+                                bold: True
+                                color: 1, 1, 1, 1
+                                halign: "center"
+                                valign: "middle"
+                                text_size: self.size
+
+                                canvas.before:
+                                    Color:
+                                        rgba: 0.24, 0.08, 0.35, 1
+                                    RoundedRectangle:
+                                        pos: self.x + 4, self.y + 8
+                                        size: self.width - 8, self.height - 16
+                                        radius: [12]
+
+                            BoxLayout:
+                                orientation: "vertical"
+                                spacing: 2
+
+                                Label:
+                                    text: "Electric Soul"
+                                    color: 1, 1, 1, 1
+                                    font_size: 18
+                                    bold: True
+                                    halign: "left"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                                Label:
+                                    text: "Neon Lights"
+                                    color: 0.75, 0.75, 0.80, 1
+                                    font_size: 14
+                                    halign: "left"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                            BoxLayout:
+                                orientation: "vertical"
+                                size_hint_x: None
+                                width: 56
+                                spacing: 2
+
+                                Label:
+                                    text: "#3"
+                                    color: 1, 0.45, 0.75, 1
+                                    font_size: 15
+                                    halign: "right"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                                Label:
+                                    text: "3:28"
+                                    color: 0.80, 0.80, 0.85, 1
+                                    font_size: 14
+                                    halign: "right"
+                                    valign: "middle"
+                                    text_size: self.size
+
+                    Label:
+                        text: "Recommended for You"
+                        font_size: 22
+                        bold: True
+                        color: 1, 1, 1, 1
+                        size_hint_y: None
+                        height: 36
+                        halign: "left"
+                        valign: "middle"
+                        text_size: self.size
+
+                    GridLayout:
+                        cols: 3
+                        spacing: 14
+                        size_hint_y: None
+                        height: 130
+
+                        Button:
+                            text: "Album 1"
+                            background_normal: ""
+                            background_down: ""
+                            background_color: 0.38, 0.23, 0.08, 1
+                            color: 1, 1, 1, 1
+
+                        Button:
+                            text: "Album 2"
+                            background_normal: ""
+                            background_down: ""
+                            background_color: 0.38, 0.23, 0.08, 1
+                            color: 1, 1, 1, 1
+
+                        Button:
+                            text: "Album 3"
+                            background_normal: ""
+                            background_down: ""
+                            background_color: 0.38, 0.23, 0.08, 1
+                            color: 1, 1, 1, 1
 
         BoxLayout:
             size_hint_y: None
-            height: 80
-            padding: [10, 10, 10, 10]
-            spacing: 10
+            height: 72
+            padding: [8, 8, 8, 8]
+            spacing: 8
 
             canvas.before:
                 Color:
@@ -558,7 +538,7 @@ RootWidget:
             height: 10
 
         Button:
-            text: "Midnight Dreams"
+            text: "Song Cover"
             size_hint_y: None
             height: 200
             background_normal: ""
@@ -568,14 +548,14 @@ RootWidget:
             bold: True
 
         Label:
-            text: "The Dreamers"
+            text: "Selected Song"
             font_size: 20
             color: 0.85, 0.85, 0.9, 1
             size_hint_y: None
             height: 30
 
         Label:
-            text: "3:45"
+            text: "Artist Name"
             font_size: 16
             color: 1, 0.45, 0.75, 1
             size_hint_y: None
@@ -636,6 +616,8 @@ RootWidget:
 
     BoxLayout:
         orientation: "vertical"
+        padding: [24, 28, 24, 16]
+        spacing: 16
 
         canvas.before:
             Color:
@@ -644,71 +626,66 @@ RootWidget:
                 pos: self.pos
                 size: self.size
 
-        BoxLayout:
-            orientation: "vertical"
-            padding: [25, 35, 25, 20]
-            spacing: 18
+        Label:
+            text: "Search"
+            font_size: 28
+            bold: True
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 44
+            halign: "left"
+            text_size: self.size
 
-            Label:
-                text: "Search"
-                font_size: 28
-                bold: True
-                color: 1, 1, 1, 1
-                size_hint_y: None
-                height: 45
-                halign: "left"
-                text_size: self.size
+        TextInput:
+            hint_text: "Search songs, artists, albums..."
+            multiline: False
+            background_normal: ""
+            background_active: ""
+            background_color: 0.18, 0.18, 0.20, 1
+            foreground_color: 1, 1, 1, 1
+            hint_text_color: 0.65, 0.65, 0.7, 1
+            padding: [16, 12, 16, 12]
+            size_hint_y: None
+            height: 48
 
-            TextInput:
-                hint_text: "Search songs, artists, albums..."
-                multiline: False
-                background_normal: ""
-                background_active: ""
-                background_color: 0.18, 0.18, 0.20, 1
-                foreground_color: 1, 1, 1, 1
-                hint_text_color: 0.65, 0.65, 0.7, 1
-                padding: [16, 12, 16, 12]
-                size_hint_y: None
-                height: 50
+        Label:
+            text: "Popular Searches"
+            font_size: 22
+            bold: True
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 36
+            halign: "left"
+            text_size: self.size
 
-            Label:
-                text: "Popular Searches"
-                font_size: 22
-                bold: True
-                color: 1, 1, 1, 1
-                size_hint_y: None
-                height: 40
-                halign: "left"
-                text_size: self.size
+        Button:
+            text: "Chill Mix"
+            background_normal: ""
+            background_down: ""
+            background_color: 0.12, 0.12, 0.14, 1
+            color: 1, 1, 1, 1
 
-            Button:
-                text: "Chill Mix"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.12, 0.12, 0.14, 1
-                color: 1, 1, 1, 1
+        Button:
+            text: "Night Drive"
+            background_normal: ""
+            background_down: ""
+            background_color: 0.12, 0.12, 0.14, 1
+            color: 1, 1, 1, 1
 
-            Button:
-                text: "Night Drive"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.12, 0.12, 0.14, 1
-                color: 1, 1, 1, 1
+        Button:
+            text: "Acoustic Mood"
+            background_normal: ""
+            background_down: ""
+            background_color: 0.12, 0.12, 0.14, 1
+            color: 1, 1, 1, 1
 
-            Button:
-                text: "Acoustic Mood"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.12, 0.12, 0.14, 1
-                color: 1, 1, 1, 1
-
-            Widget:
+        Widget:
 
         BoxLayout:
             size_hint_y: None
-            height: 80
-            padding: [10, 10, 10, 10]
-            spacing: 10
+            height: 72
+            padding: [8, 8, 8, 8]
+            spacing: 8
 
             canvas.before:
                 Color:
@@ -748,6 +725,8 @@ RootWidget:
 
     BoxLayout:
         orientation: "vertical"
+        padding: [24, 28, 24, 16]
+        spacing: 16
 
         canvas.before:
             Color:
@@ -756,61 +735,56 @@ RootWidget:
                 pos: self.pos
                 size: self.size
 
-        BoxLayout:
-            orientation: "vertical"
-            padding: [25, 35, 25, 20]
-            spacing: 18
+        Label:
+            text: "Favorite"
+            font_size: 28
+            bold: True
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 44
+            halign: "left"
+            text_size: self.size
 
-            Label:
-                text: "Favorite"
-                font_size: 28
-                bold: True
-                color: 1, 1, 1, 1
-                size_hint_y: None
-                height: 45
-                halign: "left"
-                text_size: self.size
+        Label:
+            text: "Your liked songs"
+            font_size: 16
+            color: 0.75, 0.75, 0.8, 1
+            size_hint_y: None
+            height: 24
+            halign: "left"
+            text_size: self.size
 
-            Label:
-                text: "Your liked songs"
-                font_size: 16
-                color: 0.75, 0.75, 0.8, 1
-                size_hint_y: None
-                height: 25
-                halign: "left"
-                text_size: self.size
+        Button:
+            text: "Midnight Dreams"
+            background_normal: ""
+            background_down: ""
+            background_color: 0.12, 0.12, 0.14, 1
+            color: 1, 1, 1, 1
+            on_release: app.root.current = "player"
 
-            Button:
-                text: "Midnight Dreams"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.12, 0.12, 0.14, 1
-                color: 1, 1, 1, 1
-                on_release: app.root.current = "player"
+        Button:
+            text: "Electric Soul"
+            background_normal: ""
+            background_down: ""
+            background_color: 0.12, 0.12, 0.14, 1
+            color: 1, 1, 1, 1
+            on_release: app.root.current = "player"
 
-            Button:
-                text: "Electric Soul"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.12, 0.12, 0.14, 1
-                color: 1, 1, 1, 1
-                on_release: app.root.current = "player"
+        Button:
+            text: "Summer Vibes"
+            background_normal: ""
+            background_down: ""
+            background_color: 0.12, 0.12, 0.14, 1
+            color: 1, 1, 1, 1
+            on_release: app.root.current = "player"
 
-            Button:
-                text: "Summer Vibes"
-                background_normal: ""
-                background_down: ""
-                background_color: 0.12, 0.12, 0.14, 1
-                color: 1, 1, 1, 1
-                on_release: app.root.current = "player"
-
-            Widget:
+        Widget:
 
         BoxLayout:
             size_hint_y: None
-            height: 80
-            padding: [10, 10, 10, 10]
-            spacing: 10
+            height: 72
+            padding: [8, 8, 8, 8]
+            spacing: 8
 
             canvas.before:
                 Color:
