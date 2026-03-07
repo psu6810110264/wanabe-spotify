@@ -23,7 +23,7 @@ class RootWidget(ScreenManager):
 
 class WanabeSpotifyApp(MDApp):
     def build(self):
-        self.title = f"WanabeSpotify v{APP_VERSION}"
+        self.title = "grape music"
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Pink"
         self.theme_cls.accent_palette = "Purple"
