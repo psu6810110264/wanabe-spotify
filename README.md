@@ -200,3 +200,9 @@ Features demonstrated in this project:
 - KV language UI design
 - Favorite song system
 - Basic audio playback
+
+## ✅ Final Notes
+
+MiniSpotify demonstrates a simple Spotify-like interface built with Python and Kivy.
+
+This project was created as part of a university programming assignment.
