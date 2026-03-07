@@ -28,6 +28,7 @@ class AddSongScreen(MDScreen):
         artist = self.ids.new_song_artist.text.strip()
         duration = self.ids.new_song_duration.text.strip()
         category = self.ids.new_song_category.text.strip()
+        album = self.ids.new_song_album.text.strip()
 
         if not title:
             self.ids.add_msg.text = "Please enter song title."
@@ -45,6 +46,10 @@ class AddSongScreen(MDScreen):
             self.ids.add_msg.text = "Please select a song category."
             return
 
+        if album == "Select album":
+            self.ids.add_msg.text = "Please select an album."
+            return
+
         if not self.selected_cover_path:
             self.ids.add_msg.text = "Please upload cover image."
             return
@@ -58,6 +63,7 @@ class AddSongScreen(MDScreen):
             artist,
             duration,
             category,
+            album,
             self.selected_cover_path,
             self.selected_audio_path,
         )
@@ -68,6 +74,7 @@ class AddSongScreen(MDScreen):
             self.ids.new_song_artist.text = ""
             self.ids.new_song_duration.text = ""
             self.ids.new_song_category.text = "Select category"
+            self.ids.new_song_album.text = "Select album"
             self.selected_cover_path = ""
             self.selected_audio_path = ""
             self.ids.cover_path_label.text = "No image selected"
@@ -140,7 +147,7 @@ class AddSongScreen(MDScreen):
         for index, item in enumerate(songs, start=1):
             card = SongCard(
                 title=item["title"],
-                artist=f"{item['artist']} - {item.get('category', 'Other')}",
+                artist=f"{item['artist']} - {item.get('category', 'Other')} | {item.get('album', 'Singles')}",
                 rank=f"{index:02d}",
                 duration=item["duration"],
                 image_icon="playlist-plus",
