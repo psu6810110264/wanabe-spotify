@@ -23,3 +23,9 @@ class WanabeSpotifyApp(App):
 
 if __name__ == "__main__":
     WanabeSpotifyApp().run()
+
+favorites = []
+
+def add_favorite(self):
+    if self.song_title not in favorites:
+        favorites.append(self.song_title)
