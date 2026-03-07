@@ -1,44 +1,35 @@
-from kivy.uix.screenmanager import Screen
+from kivy.properties import StringProperty
+from kivymd.uix.card import MDCard
+from kivymd.uix.screen import MDScreen
 
 
-class HomeScreen(Screen):
-    def open_player(self, song_id):
-        print(f"[Callback] open_player triggered with Song ID: {song_id}")
+class SongCard(MDCard):
+    title = StringProperty("")
+    artist = StringProperty("")
+    rank = StringProperty("")
+    duration = StringProperty("")
+    image_icon = StringProperty("music")
 
-        player_screen = self.manager.get_screen("player")
 
-        if song_id == "song_1":
-            player_screen.song_title = "Midnight Dreams"
-            player_screen.artist_name = "The Dreamers"
-        elif song_id == "song_2":
-            player_screen.song_title = "Summer Vibes"
-            player_screen.artist_name = "Beach Boys Revival"
-        elif song_id == "song_3":
-            player_screen.song_title = "Electric Soul"
-            player_screen.artist_name = "Neon Lights"
-        else:
-            player_screen.song_title = "Unknown Song"
-            player_screen.artist_name = "Unknown Artist"
+class RecommendCard(MDCard):
+    title = StringProperty("")
+    subtitle = StringProperty("")
+    image_icon = StringProperty("album")
 
+
+class HomeScreen(MDScreen):
+    def open_player(self, title, artist, duration):
+        player = self.manager.get_screen("player")
+        player.load_song(title, artist, duration)
         self.manager.current = "player"
 
     def go_home(self):
-        print("[Callback] go_home triggered")
         self.manager.current = "home"
 
     def go_search(self):
-        print("[Callback] go_search triggered")
         self.manager.current = "search"
 
     def go_favorite(self):
-        print("[Callback] go_favorite triggered")
+        favorite_screen = self.manager.get_screen("favorite")
+        favorite_screen.refresh_favorites()
         self.manager.current = "favorite"
-
-    def logout(self):
-        print("[Callback] logout triggered")
-        self.manager.current = "login"
-
-    def open_player(self, song_id):
-        player_screen = self.manager.get_screen("player")
-        player_screen.set_song(song_id)
-        self.manager.current = "player"
