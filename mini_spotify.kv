@@ -568,8 +568,9 @@
 
         MDBoxLayout:
             orientation: "vertical"
-            adaptive_height: True
-            spacing: dp(2)
+            size_hint_y: None
+            height: dp(64)
+            spacing: dp(6)
 
             MDLabel:
                 text: root.song_title
@@ -577,6 +578,10 @@
                 bold: True
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                valign: "middle"
                 shorten: True
 
             MDLabel:
@@ -584,6 +589,10 @@
                 font_style: "Subtitle2"
                 theme_text_color: "Custom"
                 text_color: .77, .77, .84, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                valign: "middle"
                 shorten: True
 
         MDSlider:
