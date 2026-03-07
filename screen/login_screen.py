@@ -1,5 +1,7 @@
 from kivy.uix.screenmanager import Screen
 
+from data_store import authenticate_account
+
 
 class LoginScreen(Screen):
     def on_login(self):
@@ -26,15 +28,16 @@ class LoginScreen(Screen):
             self.ids.msg.text = "Password must be at least 6 characters."
             return
 
-        valid_username = "admin"
-        valid_password = "123456"
-
-        if u != valid_username or p != valid_password:
+        if not authenticate_account(u, p):
             self.ids.msg.text = "Invalid username or password."
             return
 
         self.ids.msg.text = "Login success!"
         self.manager.current = "home"
+
+    def go_register(self):
+        self.ids.msg.text = ""
+        self.manager.current = "register"
 
     def clear_fields(self):
         self.ids.username.text = ""

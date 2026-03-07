@@ -1,6 +1,12 @@
 import os
+import json
 
 favorites = []
+
+ACCOUNTS_FILE = "accounts.json"
+DEFAULT_ACCOUNTS = {
+    "admin": "123456",
+}
 
 SONG_FILES = {
     "Midnight Dreams": "assets/music/midnight_dreams.mp3",
@@ -15,6 +21,48 @@ SONG_FILES = {
     "Night Drive": "assets/music/night_drive.mp3",
     "Acoustic Mood": "assets/music/acoustic_mood.mp3",
 }
+
+
+def _load_accounts():
+    if not os.path.exists(ACCOUNTS_FILE):
+        return DEFAULT_ACCOUNTS.copy()
+
+    try:
+        with open(ACCOUNTS_FILE, "r", encoding="utf-8") as fp:
+            data = json.load(fp)
+        if isinstance(data, dict):
+            accounts = DEFAULT_ACCOUNTS.copy()
+            for username, password in data.items():
+                if isinstance(username, str) and isinstance(password, str):
+                    accounts[username] = password
+            return accounts
+    except (OSError, json.JSONDecodeError):
+        pass
+
+    return DEFAULT_ACCOUNTS.copy()
+
+
+def _save_accounts():
+    with open(ACCOUNTS_FILE, "w", encoding="utf-8") as fp:
+        json.dump(_accounts, fp, indent=2)
+
+
+_accounts = _load_accounts()
+
+
+def register_account(username, password):
+    user = username.strip()
+    if user in _accounts:
+        return False, "Username already exists."
+
+    _accounts[user] = password
+    _save_accounts()
+    return True, "Account created. Please login."
+
+
+def authenticate_account(username, password):
+    user = username.strip()
+    return _accounts.get(user) == password
 
 
 def add_favorite(song_title, artist_name="Unknown Artist", duration="0:00"):

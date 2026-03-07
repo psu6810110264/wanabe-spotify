@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import ScreenManager
 from kivymd.app import MDApp
 
 from screen.login_screen import LoginScreen
+from screen.register_screen import RegisterScreen
 from screen.home_screen import HomeScreen, SongCard, RecommendCard
 from screen.player_screen import PlayerScreen
 from screen.search_screen import SearchScreen

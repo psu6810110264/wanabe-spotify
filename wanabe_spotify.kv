@@ -4,6 +4,7 @@
 RootWidget:
     current: "login"
     LoginScreen:
+    RegisterScreen:
     HomeScreen:
     PlayerScreen:
     SearchScreen:
@@ -168,7 +169,7 @@ RootWidget:
             height: dp(55)
 
         MDLabel:
-            text: "Use admin / 123456 to sign in"
+            text: "Use admin / 123456 or create a new account"
             font_style: "Caption"
             halign: "center"
             theme_text_color: "Custom"
@@ -251,12 +252,170 @@ RootWidget:
             on_release: root.on_login()
 
         MDRectangleFlatButton:
+            text: "Create Account"
+            text_color: 1, 1, 1, 1
+            line_color: .78, .32, .72, 1
+            size_hint_y: None
+            height: dp(46)
+            on_release: root.go_register()
+
+        MDRectangleFlatButton:
             text: "Clear"
             text_color: 1, 1, 1, 1
             line_color: .65, .55, .78, 1
             size_hint_y: None
             height: dp(46)
             on_release: root.clear_fields()
+
+        Widget:
+
+
+<RegisterScreen>:
+    name: "register"
+    md_bg_color: .07, .04, .14, 1
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: [dp(28), dp(32), dp(28), dp(24)]
+        spacing: dp(12)
+
+        MDBoxLayout:
+            adaptive_height: True
+
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                on_release: root.go_login()
+
+            Widget:
+
+        MDLabel:
+            text: "Create Account"
+            font_style: "H5"
+            bold: True
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(42)
+
+        MDLabel:
+            text: "Create a username and password to login"
+            font_style: "Caption"
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: .78, .78, .85, 1
+            size_hint_y: None
+            height: dp(26)
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(16)
+            spacing: dp(12)
+            size_hint_y: None
+            height: dp(290)
+            radius: [18,]
+            elevation: 0
+            md_bg_color: 1, 1, 1, .06
+
+            MDLabel:
+                text: "Username"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            TextInput:
+                id: reg_username
+                hint_text: "Enter username"
+                multiline: False
+                background_normal: ""
+                background_active: ""
+                background_color: 1, 1, 1, .08
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(12), dp(16), dp(12)]
+                size_hint_y: None
+                height: dp(46)
+
+            MDLabel:
+                text: "Password"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            TextInput:
+                id: reg_password
+                hint_text: "Enter password"
+                password: True
+                multiline: False
+                background_normal: ""
+                background_active: ""
+                background_color: 1, 1, 1, .08
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(12), dp(16), dp(12)]
+                size_hint_y: None
+                height: dp(46)
+
+            MDLabel:
+                text: "Confirm Password"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            TextInput:
+                id: reg_confirm_password
+                hint_text: "Re-enter password"
+                password: True
+                multiline: False
+                background_normal: ""
+                background_active: ""
+                background_color: 1, 1, 1, .08
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(12), dp(16), dp(12)]
+                size_hint_y: None
+                height: dp(46)
+
+        MDLabel:
+            id: reg_msg
+            text: ""
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 1, .45, .75, 1
+            size_hint_y: None
+            height: dp(26)
+
+        MDRaisedButton:
+            text: "Create Account"
+            md_bg_color: .78, .32, .72, 1
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(46)
+            on_release: root.on_create_account()
+
+        MDRectangleFlatButton:
+            text: "Clear"
+            text_color: 1, 1, 1, 1
+            line_color: .65, .55, .78, 1
+            size_hint_y: None
+            height: dp(46)
+            on_release: root.clear_fields()
+
+        MDRectangleFlatButton:
+            text: "Back to Login"
+            text_color: 1, 1, 1, 1
+            line_color: .78, .32, .72, 1
+            size_hint_y: None
+            height: dp(46)
+            on_release: root.go_login()
 
         Widget:
 
