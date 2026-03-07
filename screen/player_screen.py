@@ -33,7 +33,7 @@ class PlayerScreen(MDScreen):
         self.is_playing = False
         self.is_favorite_song = is_favorite(title, artist)
 
-        song_file = get_song_file(title)
+        song_file = get_song_file(title, artist)
 
         if song_file:
             self.current_sound = SoundLoader.load(song_file)

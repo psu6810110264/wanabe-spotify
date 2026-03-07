@@ -10,6 +10,7 @@ from screen.player_screen import PlayerScreen
 from screen.search_screen import SearchScreen
 from screen.favorite_screen import FavoriteScreen
 from screen.profile_screen import ProfileScreen
+from screen.add_song_screen import AddSongScreen
 
 APP_VERSION = "1.0.0"
 

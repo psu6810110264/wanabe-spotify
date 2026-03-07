@@ -3,6 +3,7 @@ import json
 
 favorites = []
 current_user = ""
+custom_songs = []
 
 ACCOUNTS_FILE = "accounts.json"
 DEFAULT_ACCOUNTS = {
@@ -122,8 +123,37 @@ def clear_favorites():
     favorites.clear()
 
 
-def get_song_file(song_title):
+def get_song_file(song_title, artist_name=None):
+    for song in custom_songs:
+        if song["title"] == song_title and (artist_name is None or song["artist"] == artist_name):
+            path = song.get("audio_file_path", "")
+            if path and os.path.exists(path):
+                return path
+
     path = SONG_FILES.get(song_title, "")
     if path and os.path.exists(path):
         return path
     return ""
+
+
+def add_custom_song(title, artist, duration, cover_image_path="", audio_file_path=""):
+    t = title.strip()
+    a = artist.strip()
+    d = duration.strip()
+
+    for song in custom_songs:
+        if song["title"].lower() == t.lower() and song["artist"].lower() == a.lower():
+            return False, "Song already exists in your list."
+
+    custom_songs.append({
+        "title": t,
+        "artist": a,
+        "duration": d,
+        "cover_image_path": cover_image_path.strip(),
+        "audio_file_path": audio_file_path.strip(),
+    })
+    return True, "Song added successfully."
+
+
+def get_custom_songs():
+    return custom_songs

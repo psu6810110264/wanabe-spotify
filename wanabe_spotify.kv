@@ -6,6 +6,7 @@ RootWidget:
     LoginScreen:
     RegisterScreen:
     ProfileScreen:
+    AddSongScreen:
     HomeScreen:
     PlayerScreen:
     SearchScreen:
@@ -528,6 +529,196 @@ RootWidget:
         Widget:
 
 
+<AddSongScreen>:
+    name: "add_song"
+    md_bg_color: .10, .06, .17, 1
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: [dp(18), dp(16), dp(18), dp(16)]
+        spacing: dp(12)
+
+        MDBoxLayout:
+            adaptive_height: True
+
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                on_release: root.go_home()
+
+            MDLabel:
+                text: "Add Song"
+                font_style: "H6"
+                bold: True
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+
+            Widget:
+                size_hint_x: None
+                width: dp(48)
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(14)
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(402)
+            radius: [18,]
+            elevation: 0
+            md_bg_color: 1, 1, 1, .06
+
+            MDLabel:
+                text: "Song Title"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            TextInput:
+                id: new_song_title
+                hint_text: "e.g. Sunset Drive"
+                multiline: False
+                background_normal: ""
+                background_active: ""
+                background_color: 1, 1, 1, .08
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(12), dp(16), dp(12)]
+                size_hint_y: None
+                height: dp(46)
+
+            MDLabel:
+                text: "Artist"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            TextInput:
+                id: new_song_artist
+                hint_text: "e.g. Luna Wave"
+                multiline: False
+                background_normal: ""
+                background_active: ""
+                background_color: 1, 1, 1, .08
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(12), dp(16), dp(12)]
+                size_hint_y: None
+                height: dp(46)
+
+            MDLabel:
+                text: "Duration (m:ss)"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            TextInput:
+                id: new_song_duration
+                hint_text: "e.g. 3:42"
+                multiline: False
+                background_normal: ""
+                background_active: ""
+                background_color: 1, 1, 1, .08
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(12), dp(16), dp(12)]
+                size_hint_y: None
+                height: dp(46)
+
+            MDLabel:
+                text: "Cover Image"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            MDBoxLayout:
+                adaptive_height: True
+                spacing: dp(8)
+
+                MDRaisedButton:
+                    text: "Upload Image"
+                    md_bg_color: .49, .29, .68, 1
+                    text_color: 1, 1, 1, 1
+                    size_hint_x: None
+                    width: dp(130)
+                    on_release: root.pick_cover_image()
+
+                MDLabel:
+                    id: cover_path_label
+                    text: "No image selected"
+                    theme_text_color: "Custom"
+                    text_color: .78, .78, .86, 1
+                    shorten: True
+
+            MDLabel:
+                text: "Song File"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            MDBoxLayout:
+                adaptive_height: True
+                spacing: dp(8)
+
+                MDRaisedButton:
+                    text: "Upload Audio"
+                    md_bg_color: .49, .29, .68, 1
+                    text_color: 1, 1, 1, 1
+                    size_hint_x: None
+                    width: dp(130)
+                    on_release: root.pick_audio_file()
+
+                MDLabel:
+                    id: audio_path_label
+                    text: "No audio selected"
+                    theme_text_color: "Custom"
+                    text_color: .78, .78, .86, 1
+                    shorten: True
+
+        MDLabel:
+            id: add_msg
+            text: ""
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 1, .45, .75, 1
+            size_hint_y: None
+            height: dp(24)
+
+        MDRaisedButton:
+            text: "Add Song"
+            md_bg_color: .78, .32, .72, 1
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(46)
+            on_release: root.on_add_song()
+
+        MDLabel:
+            text: "Your Added Songs"
+            font_style: "Subtitle1"
+            theme_text_color: "Custom"
+            text_color: .92, .92, .96, 1
+            size_hint_y: None
+            height: dp(28)
+
+        ScrollView:
+            bar_width: 0
+
+            MDBoxLayout:
+                id: add_song_list
+                orientation: "vertical"
+                adaptive_height: True
+                spacing: dp(10)
+
+
 <HomeScreen>:
     name: "home"
     md_bg_color: .10, .06, .17, 1
@@ -577,6 +768,12 @@ RootWidget:
                         theme_text_color: "Custom"
                         text_color: .87, .87, .95, 1
                         on_release: root.go_profile()
+
+                    MDIconButton:
+                        icon: "playlist-plus"
+                        theme_text_color: "Custom"
+                        text_color: .87, .87, .95, 1
+                        on_release: root.go_add_song()
 
                     MDIconButton:
                         icon: "logout"

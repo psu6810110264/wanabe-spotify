@@ -38,3 +38,8 @@ class HomeScreen(MDScreen):
         profile_screen = self.manager.get_screen("profile")
         profile_screen.refresh_profile()
         self.manager.current = "profile"
+
+    def go_add_song(self):
+        add_song_screen = self.manager.get_screen("add_song")
+        add_song_screen.refresh_song_list()
+        self.manager.current = "add_song"
