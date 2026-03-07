@@ -1,5 +1,22 @@
 {
-  "admin": "123456",
-  "nine": "123456",
-  "nine8": "123456"
+  "admin": {
+    "password": "123456",
+    "role": "artist"
+  },
+  "nine": {
+    "password": "123456",
+    "role": "listener"
+  },
+  "nine8": {
+    "password": "123456",
+    "role": "listener"
+  },
+  "lol77": {
+    "password": "123456",
+    "role": "listener"
+  },
+  "lol78": {
+    "password": "123456",
+    "role": "artist"
+  }
 }

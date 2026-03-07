@@ -8,6 +8,7 @@ class RegisterScreen(Screen):
         u = self.ids.reg_username.text.strip()
         p = self.ids.reg_password.text.strip()
         c = self.ids.reg_confirm_password.text.strip()
+        role = self.ids.reg_role.text.strip()
 
         if not u and not p:
             self.ids.reg_msg.text = "Please enter username and password."
@@ -33,11 +34,16 @@ class RegisterScreen(Screen):
             self.ids.reg_msg.text = "Password confirmation does not match."
             return
 
-        success, message = register_account(u, p)
+        if role == "Select account type":
+            self.ids.reg_msg.text = "Please select account type."
+            return
+
+        success, message = register_account(u, p, role.lower())
         self.ids.reg_msg.text = message
         if success:
             self.ids.reg_password.text = ""
             self.ids.reg_confirm_password.text = ""
+            self.ids.reg_role.text = "Select account type"
 
     def go_login(self):
         self.ids.reg_msg.text = ""
@@ -47,4 +53,5 @@ class RegisterScreen(Screen):
         self.ids.reg_username.text = ""
         self.ids.reg_password.text = ""
         self.ids.reg_confirm_password.text = ""
+        self.ids.reg_role.text = "Select account type"
         self.ids.reg_msg.text = ""

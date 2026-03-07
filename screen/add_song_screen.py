@@ -6,7 +6,7 @@ from tkinter import filedialog
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
 
-from data_store import add_custom_song, get_custom_songs
+from data_store import add_custom_song, get_custom_songs, get_current_user_role
 from screen.home_screen import SongCard
 
 
@@ -24,6 +24,10 @@ class AddSongScreen(MDScreen):
         self.manager.current = "home"
 
     def on_add_song(self):
+        if get_current_user_role() != "artist":
+            self.ids.add_msg.text = "Only Artist accounts can create songs."
+            return
+
         title = self.ids.new_song_title.text.strip()
         artist = self.ids.new_song_artist.text.strip()
         duration = self.ids.new_song_duration.text.strip()
