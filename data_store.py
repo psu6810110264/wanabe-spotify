@@ -3,11 +3,12 @@ import json
 
 favorites = []
 current_user = ""
+current_user_role = ""
 custom_songs = []
 
 ACCOUNTS_FILE = "accounts.json"
 DEFAULT_ACCOUNTS = {
-    "admin": "123456",
+    "admin": {"password": "123456", "role": "artist"},
 }
 
 SONG_FILES = {
@@ -40,22 +41,43 @@ SONG_LYRICS = {
 
 
 def _load_accounts():
+    def default_accounts_copy():
+        return {username: data.copy() for username, data in DEFAULT_ACCOUNTS.items()}
+
+    def normalize_account(username, data):
+        if isinstance(data, str):
+            role = "artist" if username == "admin" else "listener"
+            return {"password": data, "role": role}
+
+        if isinstance(data, dict):
+            password = data.get("password", "")
+            role = str(data.get("role", "listener")).lower().strip()
+            if role not in ("artist", "listener"):
+                role = "listener"
+            if isinstance(password, str) and password:
+                return {"password": password, "role": role}
+
+        return None
+
     if not os.path.exists(ACCOUNTS_FILE):
-        return DEFAULT_ACCOUNTS.copy()
+        return default_accounts_copy()
 
     try:
         with open(ACCOUNTS_FILE, "r", encoding="utf-8") as fp:
             data = json.load(fp)
         if isinstance(data, dict):
-            accounts = DEFAULT_ACCOUNTS.copy()
-            for username, password in data.items():
-                if isinstance(username, str) and isinstance(password, str):
-                    accounts[username] = password
+            accounts = default_accounts_copy()
+            for username, account_data in data.items():
+                if not isinstance(username, str):
+                    continue
+                normalized = normalize_account(username, account_data)
+                if normalized:
+                    accounts[username] = normalized
             return accounts
     except (OSError, json.JSONDecodeError):
         pass
 
-    return DEFAULT_ACCOUNTS.copy()
+    return default_accounts_copy()
 
 
 def _save_accounts():
@@ -66,33 +88,55 @@ def _save_accounts():
 _accounts = _load_accounts()
 
 
-def register_account(username, password):
+def register_account(username, password, role="listener"):
     user = username.strip()
+    role_value = role.strip().lower()
+
+    if role_value not in ("artist", "listener"):
+        return False, "Please select account type."
+
     if user in _accounts:
         return False, "Username already exists."
 
-    _accounts[user] = password
+    _accounts[user] = {"password": password, "role": role_value}
     _save_accounts()
     return True, "Account created. Please login."
 
 
 def authenticate_account(username, password):
     user = username.strip()
-    return _accounts.get(user) == password
+    account = _accounts.get(user)
+    if not account:
+        return False
+    return account.get("password") == password
+
+
+def get_account_role(username):
+    user = username.strip()
+    account = _accounts.get(user)
+    if not account:
+        return "listener"
+    return account.get("role", "listener")
 
 
 def set_current_user(username):
-    global current_user
+    global current_user, current_user_role
     current_user = username.strip()
+    current_user_role = get_account_role(current_user)
 
 
 def get_current_user():
     return current_user
 
 
+def get_current_user_role():
+    return current_user_role or "listener"
+
+
 def clear_current_user():
-    global current_user
+    global current_user, current_user_role
     current_user = ""
+    current_user_role = ""
 
 
 def add_favorite(song_title, artist_name="Unknown Artist", duration="0:00"):
@@ -164,11 +208,12 @@ def get_song_lyrics(song_title, artist_name=None):
     return "No lyrics available for this song yet."
 
 
-def add_custom_song(title, artist, duration, category="Other", cover_image_path="", audio_file_path=""):
+def add_custom_song(title, artist, duration, category="Other", album="Singles", cover_image_path="", audio_file_path=""):
     t = title.strip()
     a = artist.strip()
     d = duration.strip()
     c = category.strip() or "Other"
+    al = album.strip() or "Singles"
 
     for song in custom_songs:
         if song["title"].lower() == t.lower() and song["artist"].lower() == a.lower():
@@ -179,6 +224,7 @@ def add_custom_song(title, artist, duration, category="Other", cover_image_path=
         "artist": a,
         "duration": d,
         "category": c,
+        "album": al,
         "cover_image_path": cover_image_path.strip(),
         "audio_file_path": audio_file_path.strip(),
     })
