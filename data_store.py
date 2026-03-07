@@ -136,10 +136,11 @@ def get_song_file(song_title, artist_name=None):
     return ""
 
 
-def add_custom_song(title, artist, duration, cover_image_path="", audio_file_path=""):
+def add_custom_song(title, artist, duration, category="Other", cover_image_path="", audio_file_path=""):
     t = title.strip()
     a = artist.strip()
     d = duration.strip()
+    c = category.strip() or "Other"
 
     for song in custom_songs:
         if song["title"].lower() == t.lower() and song["artist"].lower() == a.lower():
@@ -149,6 +150,7 @@ def add_custom_song(title, artist, duration, cover_image_path="", audio_file_pat
         "title": t,
         "artist": a,
         "duration": d,
+        "category": c,
         "cover_image_path": cover_image_path.strip(),
         "audio_file_path": audio_file_path.strip(),
     })
