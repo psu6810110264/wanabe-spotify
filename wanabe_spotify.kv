@@ -822,8 +822,9 @@ RootWidget:
 
         MDBoxLayout:
             orientation: "vertical"
-            adaptive_height: True
-            spacing: dp(2)
+            size_hint_y: None
+            height: dp(56)
+            spacing: dp(4)
 
             MDLabel:
                 text: root.song_title
@@ -831,6 +832,8 @@ RootWidget:
                 bold: True
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(30)
                 shorten: True
 
             MDLabel:
@@ -838,6 +841,8 @@ RootWidget:
                 font_style: "Subtitle2"
                 theme_text_color: "Custom"
                 text_color: .77, .77, .84, 1
+                size_hint_y: None
+                height: dp(22)
                 shorten: True
 
         MDSlider:
