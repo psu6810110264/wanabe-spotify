@@ -1,3 +1,5 @@
+import os
+
 from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 from kivy.properties import StringProperty, NumericProperty, BooleanProperty
@@ -14,6 +16,7 @@ class PlayerScreen(MDScreen):
 
     current_time = StringProperty("0:00")
     progress = NumericProperty(0)
+    playback_status = StringProperty("")
 
     is_playing = BooleanProperty(False)
     is_favorite_song = BooleanProperty(False)
@@ -33,20 +36,30 @@ class PlayerScreen(MDScreen):
         self.current_time = "0:00"
         self.progress = 0
         self.is_playing = False
+        self.playback_status = ""
         self.is_favorite_song = is_favorite(title, artist)
 
         song_file = get_song_file(title, artist)
 
         if song_file:
             self.current_sound = SoundLoader.load(song_file)
+            if not self.current_sound and song_file.lower().endswith(".mp4"):
+                self.current_sound = self._load_mp4_with_ffpyplayer(song_file)
+
+            if not self.current_sound:
+                ext = os.path.splitext(song_file)[1].lower()
+                if ext == ".mp4":
+                    self.playback_status = "Cannot play .mp4 on this device. Install ffpyplayer and restart app."
+                else:
+                    self.playback_status = f"Cannot play this file: {os.path.basename(song_file)}"
         else:
             self.current_sound = None
-            print(f"Audio file not found for {title}")
+            self.playback_status = f"Audio file not found for: {title}"
 
     def toggle_play_pause(self):
 
         if not self.current_sound:
-            print("No audio loaded")
+            self.playback_status = "No audio loaded"
             return
 
         if self.is_playing:
@@ -54,9 +67,11 @@ class PlayerScreen(MDScreen):
             self.is_playing = False
             self.progress = 0
             self.current_time = "0:00"
+            self.playback_status = ""
         else:
             self.current_sound.play()
             self.is_playing = True
+            self.playback_status = ""
 
     def on_play(self):
         self.toggle_play_pause()
@@ -99,7 +114,10 @@ class PlayerScreen(MDScreen):
     def stop_current_sound(self):
 
         if self.current_sound:
-            self.current_sound.stop()
+            try:
+                self.current_sound.stop()
+            except Exception:
+                pass
 
         self.is_playing = False
 
@@ -120,3 +138,53 @@ class PlayerScreen(MDScreen):
         remain = seconds % 60
 
         return f"{minutes}:{remain:02d}"
+
+    def _load_mp4_with_ffpyplayer(self, song_file):
+        try:
+            from ffpyplayer.player import MediaPlayer
+        except Exception:
+            return None
+
+        if not os.path.exists(song_file):
+            return None
+
+        try:
+            return _FFPyPlayerAudio(song_file, MediaPlayer)
+        except Exception:
+            return None
+
+
+class _FFPyPlayerAudio:
+    def __init__(self, song_file, media_player_cls):
+        self._player = media_player_cls(song_file, ff_opts={"paused": True, "vn": True})
+        self._length = 0.0
+
+    @property
+    def length(self):
+        if self._length:
+            return self._length
+        try:
+            metadata = self._player.get_metadata() or {}
+            self._length = float(metadata.get("duration") or 0.0)
+        except Exception:
+            self._length = 0.0
+        return self._length
+
+    def play(self):
+        self._player.set_pause(False)
+
+    def stop(self):
+        self._player.set_pause(True)
+        try:
+            self.seek(0)
+        except Exception:
+            pass
+
+    def seek(self, seconds):
+        self._player.seek(max(0.0, float(seconds)), relative=False)
+
+    def get_pos(self):
+        pts = self._player.get_pts()
+        if pts is None:
+            return 0
+        return max(0.0, float(pts))

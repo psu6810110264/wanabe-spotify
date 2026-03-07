@@ -1,3 +1,4 @@
 kivy
 kivymd
 pygame
+ffpyplayer

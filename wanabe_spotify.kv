@@ -592,7 +592,7 @@ RootWidget:
             padding: dp(14)
             spacing: dp(10)
             size_hint_y: None
-            height: dp(542)
+            height: dp(650)
             radius: [18,]
             elevation: 0
             md_bg_color: 1, 1, 1, .06
@@ -640,25 +640,26 @@ RootWidget:
                 height: dp(46)
 
             MDLabel:
-                text: "Duration (m:ss)"
+                text: "Duration (auto)"
                 theme_text_color: "Custom"
                 text_color: 1, 1, 1, 1
                 size_hint_y: None
                 height: dp(20)
 
-            TextInput:
-                id: new_song_duration
-                hint_text: "e.g. 3:42"
-                multiline: False
-                background_normal: ""
-                background_active: ""
-                background_color: 1, 1, 1, .08
-                foreground_color: 1, 1, 1, 1
-                hint_text_color: .68, .68, .76, 1
-                cursor_color: 1, .45, .75, 1
-                padding: [dp(16), dp(12), dp(16), dp(12)]
+            MDCard:
                 size_hint_y: None
                 height: dp(46)
+                radius: [10,]
+                elevation: 0
+                md_bg_color: 1, 1, 1, .08
+                padding: [dp(16), 0, dp(16), 0]
+
+                MDLabel:
+                    id: duration_value_label
+                    text: "--:--"
+                    theme_text_color: "Custom"
+                    text_color: .90, .90, .96, 1
+                    valign: "middle"
 
             MDLabel:
                 text: "Category"
@@ -691,6 +692,27 @@ RootWidget:
                 height: dp(46)
                 background_color: .24, .16, .39, 1
                 color: 1, 1, 1, 1
+
+            MDLabel:
+                text: "Lyrics"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            TextInput:
+                id: new_song_lyrics
+                hint_text: "Type song lyrics (optional)"
+                multiline: True
+                background_normal: ""
+                background_active: ""
+                background_color: 1, 1, 1, .08
+                foreground_color: 1, 1, 1, 1
+                hint_text_color: .68, .68, .76, 1
+                cursor_color: 1, .45, .75, 1
+                padding: [dp(16), dp(10), dp(16), dp(10)]
+                size_hint_y: None
+                height: dp(96)
 
             MDLabel:
                 text: "Cover Image"
@@ -965,6 +987,20 @@ RootWidget:
                             duration: "2:56"
                             image_icon: "radio"
                             on_release: root.open_player(self.title, self.artist, self.duration)
+
+                        MDLabel:
+                            text: "Your Added Songs"
+                            font_style: "Subtitle1"
+                            theme_text_color: "Custom"
+                            text_color: .92, .92, .96, 1
+                            size_hint_y: None
+                            height: dp(28)
+
+                        MDBoxLayout:
+                            id: home_custom_song_list
+                            orientation: "vertical"
+                            adaptive_height: True
+                            spacing: dp(10)
 
                         MDLabel:
                             text: "Recommended for You"
@@ -1401,6 +1437,14 @@ RootWidget:
                 halign: "right"
                 theme_text_color: "Custom"
                 text_color: .72, .72, .80, 1
+
+        MDLabel:
+            text: root.playback_status
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 1, .55, .72, 1
+            size_hint_y: None
+            height: dp(20)
 
         MDCard:
             size_hint_y: None

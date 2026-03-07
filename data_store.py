@@ -150,9 +150,19 @@ def add_favorite(song_title, artist_name="Unknown Artist", duration="0:00"):
     return False
 
 
+def _favorite_matches(item, song_title, artist_name=None):
+    if isinstance(item, dict):
+        return item.get("title") == song_title and (artist_name is None or item.get("artist") == artist_name)
+
+    if isinstance(item, str):
+        return item == song_title
+
+    return False
+
+
 def remove_favorite(song_title, artist_name=None):
     for item in favorites[:]:
-        if item["title"] == song_title and (artist_name is None or item["artist"] == artist_name):
+        if _favorite_matches(item, song_title, artist_name):
             favorites.remove(item)
             return True
     return False
@@ -160,7 +170,7 @@ def remove_favorite(song_title, artist_name=None):
 
 def is_favorite(song_title, artist_name=None):
     for item in favorites:
-        if item["title"] == song_title and (artist_name is None or item["artist"] == artist_name):
+        if _favorite_matches(item, song_title, artist_name):
             return True
     return False
 
@@ -208,7 +218,7 @@ def get_song_lyrics(song_title, artist_name=None):
     return "No lyrics available for this song yet."
 
 
-def add_custom_song(title, artist, duration, category="Other", album="Singles", cover_image_path="", audio_file_path=""):
+def add_custom_song(title, artist, duration, category="Other", album="Singles", cover_image_path="", audio_file_path="", lyrics=""):
     t = title.strip()
     a = artist.strip()
     d = duration.strip()
@@ -227,6 +237,7 @@ def add_custom_song(title, artist, duration, category="Other", album="Singles", 
         "album": al,
         "cover_image_path": cover_image_path.strip(),
         "audio_file_path": audio_file_path.strip(),
+        "lyrics": lyrics.strip(),
     })
     return True, "Song added successfully."
 

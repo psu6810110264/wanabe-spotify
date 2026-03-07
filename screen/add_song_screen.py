@@ -1,8 +1,8 @@
-import re
 import os
 import tkinter as tk
 from tkinter import filedialog
 
+from kivy.core.audio import SoundLoader
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
 
@@ -15,6 +15,7 @@ class AddSongScreen(MDScreen):
         super().__init__(**kwargs)
         self.selected_cover_path = ""
         self.selected_audio_path = ""
+        self.selected_duration = ""
 
     def on_pre_enter(self, *args):
         self.refresh_song_list()
@@ -30,7 +31,8 @@ class AddSongScreen(MDScreen):
 
         title = self.ids.new_song_title.text.strip()
         artist = self.ids.new_song_artist.text.strip()
-        duration = self.ids.new_song_duration.text.strip()
+        duration = self.selected_duration
+        lyrics = self.ids.new_song_lyrics.text.strip()
         category = self.ids.new_song_category.text.strip()
         album = self.ids.new_song_album.text.strip()
 
@@ -42,8 +44,8 @@ class AddSongScreen(MDScreen):
             self.ids.add_msg.text = "Please enter artist name."
             return
 
-        if not re.fullmatch(r"\d{1,2}:\d{2}", duration):
-            self.ids.add_msg.text = "Duration format must be m:ss or mm:ss."
+        if not duration:
+            self.ids.add_msg.text = "Please upload audio file to detect duration."
             return
 
         if category == "Select category":
@@ -70,19 +72,22 @@ class AddSongScreen(MDScreen):
             album,
             self.selected_cover_path,
             self.selected_audio_path,
+            lyrics,
         )
         self.ids.add_msg.text = message
 
         if success:
             self.ids.new_song_title.text = ""
             self.ids.new_song_artist.text = ""
-            self.ids.new_song_duration.text = ""
+            self.ids.new_song_lyrics.text = ""
             self.ids.new_song_category.text = "Select category"
             self.ids.new_song_album.text = "Select album"
             self.selected_cover_path = ""
             self.selected_audio_path = ""
+            self.selected_duration = ""
             self.ids.cover_path_label.text = "No image selected"
             self.ids.audio_path_label.text = "No audio selected"
+            self.ids.duration_value_label.text = "--:--"
             self.refresh_song_list()
 
     def pick_cover_image(self):
@@ -103,19 +108,74 @@ class AddSongScreen(MDScreen):
 
     def pick_audio_file(self):
         path = self._pick_file([
-            ("Audio Files", "*.mp3 *.wav *.ogg"),
+            ("Audio Files", "*.mp3 *.wav *.ogg *.mp4"),
             ("All Files", "*.*"),
         ])
         if not path:
             return
 
-        if not path.lower().endswith((".mp3", ".wav", ".ogg")):
-            self.ids.add_msg.text = "Audio file must be mp3/wav/ogg."
+        if not path.lower().endswith((".mp3", ".wav", ".ogg", ".mp4")):
+            self.ids.add_msg.text = "Audio file must be mp3/wav/ogg/mp4."
             return
 
         self.selected_audio_path = path
         self.ids.audio_path_label.text = os.path.basename(path)
+        duration_seconds = self._detect_audio_duration(path)
+        if duration_seconds is None:
+            self.selected_duration = ""
+            self.ids.duration_value_label.text = "--:--"
+            self.ids.add_msg.text = "Cannot read duration from this audio file."
+            return
+
+        self.selected_duration = self._format_duration(duration_seconds)
+        self.ids.duration_value_label.text = self.selected_duration
         self.ids.add_msg.text = ""
+
+    def _detect_audio_duration(self, path):
+        sound = None
+        try:
+            sound = SoundLoader.load(path)
+            if sound and getattr(sound, "length", 0):
+                length = float(sound.length)
+                if length > 0:
+                    return length
+        except Exception:
+            pass
+        finally:
+            if sound:
+                try:
+                    sound.stop()
+                except Exception:
+                    pass
+
+        try:
+            from ffpyplayer.player import MediaPlayer
+        except Exception:
+            return None
+
+        player = None
+        try:
+            player = MediaPlayer(path, ff_opts={"paused": True, "vn": True})
+            metadata = player.get_metadata() or {}
+            length = float(metadata.get("duration") or 0)
+            if length > 0:
+                return length
+        except Exception:
+            return None
+        finally:
+            if player and hasattr(player, "close_player"):
+                try:
+                    player.close_player()
+                except Exception:
+                    pass
+
+        return None
+
+    def _format_duration(self, seconds):
+        total = int(round(seconds))
+        minutes = total // 60
+        remain = total % 60
+        return f"{minutes}:{remain:02d}"
 
     def _pick_file(self, file_types):
         try:

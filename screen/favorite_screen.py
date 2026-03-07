@@ -27,7 +27,31 @@ class FavoriteScreen(MDScreen):
             container.add_widget(empty_label)
             return
 
-        for index, item in enumerate(favorite_items, start=1):
+        normalized_items = []
+        for item in favorite_items:
+            if isinstance(item, dict):
+                normalized_items.append(item)
+            elif isinstance(item, str):
+                normalized_items.append({
+                    "title": item,
+                    "artist": "Unknown Artist",
+                    "duration": "0:00",
+                })
+
+        if not normalized_items:
+            container.add_widget(
+                MDLabel(
+                    text="No favorite songs yet",
+                    halign="center",
+                    theme_text_color="Custom",
+                    text_color=(1, 1, 1, 1),
+                    size_hint_y=None,
+                    height=50,
+                )
+            )
+            return
+
+        for index, item in enumerate(normalized_items, start=1):
             card = SongCard(
                 title=item["title"],
                 artist=item["artist"],
