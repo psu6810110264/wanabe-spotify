@@ -24,6 +24,20 @@ SONG_FILES = {
     "Acoustic Mood": "assets/music/acoustic_mood.mp3",
 }
 
+SONG_LYRICS = {
+    "Midnight Dreams": "Under city lights we fade away\nChasing echoes of a better day\nHold on tight through the midnight sky",
+    "Summer Vibes": "Warm wind, open road, no destination\nWe keep dancing with no hesitation\nSummer nights, we sing out loud",
+    "Electric Soul": "Heartbeat syncing with the neon glow\nEvery step feels like a radio\nElectric soul, never letting go",
+    "Ocean Radio": "Waves keep calling like a distant song\nOn this frequency we drift along\nOcean radio, play all night",
+    "Moonlight Avenue": "Streetlights shining on the avenue\nEvery memory keeps leading back to you\nMoonlight paints the sky in blue",
+    "Deep Blue": "Falling deeper where the silence flows\nIn the dark, a hidden fire glows\nDeep blue carries me back home",
+    "Pixel Heart": "Pixel heart beating on the screen\nLove in colors never seen\nPress restart, we begin again",
+    "Red Skyline": "Red skyline over sleepless streets\nEvery shadow moves with our heartbeat\nTill sunrise finds us young and free",
+    "Chill Mix": "Slow down, breathe in, let the moment stay\nSoft drums washing all the noise away\nJust ride the night on a gentle wave",
+    "Night Drive": "Windows down on an empty line\nCity sparks in the rearview shine\nNight drive, keep me in the light",
+    "Acoustic Mood": "Two chords ringing in a quiet room\nSimple words begin to bloom\nAcoustic mood, tell the truth",
+}
+
 
 def _load_accounts():
     if not os.path.exists(ACCOUNTS_FILE):
@@ -134,6 +148,20 @@ def get_song_file(song_title, artist_name=None):
     if path and os.path.exists(path):
         return path
     return ""
+
+
+def get_song_lyrics(song_title, artist_name=None):
+    for song in custom_songs:
+        if song["title"] == song_title and (artist_name is None or song["artist"] == artist_name):
+            lyrics = song.get("lyrics", "").strip()
+            if lyrics:
+                return lyrics
+
+    lyrics = SONG_LYRICS.get(song_title, "").strip()
+    if lyrics:
+        return lyrics
+
+    return "No lyrics available for this song yet."
 
 
 def add_custom_song(title, artist, duration, category="Other", cover_image_path="", audio_file_path=""):
