@@ -139,12 +139,29 @@ RootWidget:
 
         Widget:
             size_hint_y: None
-            height: dp(15)
+            height: dp(10)
+
+        MDCard:
+            size_hint: None, None
+            size: dp(90), dp(90)
+            radius: [45,]
+            elevation: 0
+            md_bg_color: .78, .32, .72, 1
+            pos_hint: {"center_x": .5}
+
+            MDLabel:
+                text: "♫"
+                halign: "center"
+                valign: "middle"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                font_style: "H3"
 
         MDLabel:
             text: "MiniSpotify"
             font_style: "H4"
             bold: True
+            halign: "center"
             theme_text_color: "Custom"
             text_color: 1, 1, 1, 1
             size_hint_y: None
@@ -153,6 +170,7 @@ RootWidget:
         MDLabel:
             text: "Use admin / 123456 to sign in"
             font_style: "Caption"
+            halign: "center"
             theme_text_color: "Custom"
             text_color: .78, .78, .85, 1
             size_hint_y: None
@@ -611,11 +629,13 @@ RootWidget:
                             elevation: 0
                             md_bg_color: .31, .22, .53, 1
 
-                            MDIcon:
-                                icon: "account"
+                            MDLabel:
+                                text: "♫"
                                 halign: "center"
+                                valign: "middle"
                                 theme_text_color: "Custom"
                                 text_color: 1, 1, 1, 1
+                                font_style: "H6"
 
                         MDBoxLayout:
                             orientation: "vertical"
@@ -758,10 +778,10 @@ RootWidget:
             Widget:
 
             MDIconButton:
-                icon: "heart-outline"
+                icon: "heart" if root.is_favorite_song else "heart-outline"
                 theme_text_color: "Custom"
-                text_color: .95, .68, .82, 1
-                on_release: root.add_favorite()
+                text_color: (1, .35, .65, 1) if root.is_favorite_song else (.95, .68, .82, 1)
+                on_release: root.toggle_favorite_song()
 
             MDIconButton:
                 icon: "dots-horizontal"
@@ -782,12 +802,13 @@ RootWidget:
 
                 Widget:
 
-                MDIcon:
-                    icon: "album"
+                MDLabel:
+                    text: "◉"
                     halign: "center"
-                    font_size: "128sp"
+                    valign: "middle"
                     theme_text_color: "Custom"
                     text_color: 1, .63, .85, 1
+                    font_style: "H1"
 
                 MDLabel:
                     text: "MINI SPOTIFY"
