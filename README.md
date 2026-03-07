@@ -181,3 +181,11 @@ update README documentation
 - Improved Player controls layout
 - Better icon alignment
 - Cleaner UI spacing
+
+## 🔍 Search System Update
+
+Search screen now includes
+
+- Popular search list
+- Search input UI
+- Navigation to player screen
