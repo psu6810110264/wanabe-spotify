@@ -142,3 +142,34 @@ KV Language
 
 Student Project  
 MiniSpotify Clone using Kivy
+
+commit 26  
+improve login screen UI  
+- add MiniSpotify logo on login page  
+- adjust layout spacing
+
+commit 27  
+fix text overlapping in UI  
+- adjust label height  
+- improve responsive layout
+
+commit 28  
+improve player UI  
+- better control buttons  
+- play / pause state update
+
+commit 29  
+favorite button enhancement  
+- heart icon changes when song is favorite  
+- visual feedback for user
+
+commit 30  
+improve My Music screen  
+- fix icon display  
+- improve library layout
+
+commit 31  
+update README documentation  
+- add project features  
+- add installation guide  
+- add project structure
