@@ -108,7 +108,7 @@ RootWidget:
             icon: root.image_icon
             halign: "center"
             font_size: dp(50)
-            pos_hint: {'center_y': .5}
+            pos_hint: {"center_y": .5}
             theme_text_color: "Custom"
             text_color: 1, 1, 1, 1
 
@@ -628,14 +628,15 @@ RootWidget:
                             radius: [27,]
                             elevation: 0
                             md_bg_color: .31, .22, .53, 1
+                            pos_hint: {"center_y": .5}
 
-                            MDLabel:
-                                text: "♫"
+                            MDIcon:
+                                icon: "music"
                                 halign: "center"
-                                valign: "middle"
                                 theme_text_color: "Custom"
                                 text_color: 1, 1, 1, 1
-                                font_style: "H6"
+                                font_size: "28sp"
+                                pos_hint: {"center_x": .5, "center_y": .5}
 
                         MDBoxLayout:
                             orientation: "vertical"
