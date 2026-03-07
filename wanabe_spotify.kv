@@ -564,7 +564,7 @@ RootWidget:
             padding: dp(14)
             spacing: dp(10)
             size_hint_y: None
-            height: dp(402)
+            height: dp(472)
             radius: [18,]
             elevation: 0
             md_bg_color: 1, 1, 1, .06
@@ -631,6 +631,22 @@ RootWidget:
                 padding: [dp(16), dp(12), dp(16), dp(12)]
                 size_hint_y: None
                 height: dp(46)
+
+            MDLabel:
+                text: "Category"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(20)
+
+            Spinner:
+                id: new_song_category
+                text: "Select category"
+                values: ["Pop", "Rock", "Hip Hop", "R&B", "Indie", "EDM", "Jazz", "Acoustic", "Lo-fi", "Other"]
+                size_hint_y: None
+                height: dp(46)
+                background_color: .24, .16, .39, 1
+                color: 1, 1, 1, 1
 
             MDLabel:
                 text: "Cover Image"
