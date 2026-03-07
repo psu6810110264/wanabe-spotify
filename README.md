@@ -1,208 +1,114 @@
-# 🎵 MiniSpotify - Kivy Music Player
+# Wanabe Spotify (grape music)
 
-MiniSpotify เป็นแอปพลิเคชันเล่นเพลงขนาดเล็กที่พัฒนาด้วย Python และ Kivy  
-โปรเจคนี้จำลองระบบพื้นฐานของ Spotify เช่น การเปิดเพลง การเปลี่ยนเพลง และระบบ Favorite
+แอป Music Player ที่พัฒนาด้วย Python + Kivy/KivyMD โดยมีระบบล็อกอิน, เล่นเพลง, favorites และเพิ่มเพลงเองได้จากหน้า UI
 
----
+## Features
 
-# 📦 Project Features
+- ระบบ `Login/Register` พร้อมบทบาทผู้ใช้ (`artist`, `listener`)
+- หน้า `Home` แสดงเพลงตัวอย่างและเพลงที่ผู้ใช้เพิ่มเอง (`Your Added Songs`)
+- หน้า `Player` เล่นเพลง, แสดง progress/time, seek, favorite, และ lyrics
+- รองรับไฟล์เสียง `mp3`, `wav`, `ogg`, `mp4`
+- เพิ่มเพลงใหม่ได้เฉพาะบัญชี `artist`
+- หน้าเพิ่มเพลงมี:
+	- อัปโหลดปกเพลง
+	- อัปโหลดไฟล์เสียง
+	- คำนวณ `Duration` อัตโนมัติจากไฟล์ (ไม่ต้องกรอกเอง)
+	- ช่องกรอก `Lyrics` ตอนเพิ่มเพลง
+- หน้า `Favorite` แสดงรายการเพลงที่กดหัวใจ
 
-## 🔐 Login System
-ผู้ใช้ต้องเข้าสู่ระบบก่อนใช้งาน
+## Default Account
 
-Username: admin  
-Password: 123456
+- Username: `admin`
+- Password: `123456`
+- Role: `artist`
 
----
+## Tech Stack
 
-## 🏠 Home Screen
-หน้าหลักของแอป
+- Python 3.11
+- Kivy
+- KivyMD
+- pygame
+- ffpyplayer
 
-แสดงรายการเพลงยอดนิยม (Trending Now)
+## Project Structure
 
-ผู้ใช้สามารถ
-- เลือกเพลงเพื่อเปิดหน้า Player
-- ดู Recommended Albums
-- ใช้ Navigation bar เพื่อเปลี่ยนหน้า
-
----
-
-## 🎧 Player Screen
-หน้าจอเล่นเพลง
-
-แสดงข้อมูล
-- Song Title
-- Artist Name
-
-ปุ่มควบคุม
-
-Prev → เล่นเพลงก่อนหน้า  
-Play → เล่นเพลง  
-Pause → หยุดเพลง  
-Next → เพลงถัดไป  
-Favorite → เพิ่มเพลงลงรายการโปรด  
-Back to Home → กลับหน้า Home
-
----
-
-## ⭐ Favorite System
-ผู้ใช้สามารถกด Favorite จากหน้า Player
-
-ระบบจะ
-- บันทึกชื่อเพลงใน favorite list
-- แสดงเพลงในหน้า Favorite
-- ใช้ ScrollView สำหรับเลื่อนดูหลายเพลง
-
----
-
-## 🔎 Search Screen
-หน้าค้นหาเพลง
-
-มี
-- Search bar
-- Popular searches
-
-เวอร์ชันปัจจุบันเป็น UI สำหรับการค้นหา
-
----
-
-## ❤️ Favorite Screen
-แสดงเพลงที่ผู้ใช้กด Favorite
-
-Features
-
-- Dynamic favorite list
-- Scrollable song list
-- Navigation bar
-
----
-
-# 🗂 Project Structure
-
+```text
 wanabe-spotify/
+	main.py
+	wanabe_spotify.kv
+	data_store.py
+	accounts.json
+	requirements.txt
+	assets/
+		music/
+	screen/
+		add_song_screen.py
+		favorite_screen.py
+		home_screen.py
+		login_screen.py
+		player_screen.py
+		profile_screen.py
+		register_screen.py
+		search_screen.py
+	tests/
+		test_data_store.py
+		test_login.py
+		test_player_stub.py
+		test_song_flow.py
+```
 
-main.py  
-wanabe_spotify.kv  
+## Installation (Windows)
 
-data_store.py  
+1. สร้าง virtual environment
 
-screen/
+```powershell
+python -m venv .venv-1
+```
 
-login_screen.py  
-home_screen.py  
-player_screen.py  
-search_screen.py  
-favorite_screen.py  
+2. เปิดใช้งาน venv
 
----
+```powershell
+.\.venv-1\Scripts\Activate.ps1
+```
 
-# ⚙️ Installation
+3. ติดตั้ง dependencies
 
-ติดตั้ง Kivy
+```powershell
+pip install -r requirements.txt
+```
 
-pip install kivy
+## Run Application
 
----
-
-# ▶ Run Application
-
+```powershell
 python main.py
+```
 
----
+หรือถ้าต้องการระบุ interpreter ตรง ๆ:
 
-# 🚀 Development Progress
+```powershell
+.\.venv-1\Scripts\python.exe .\main.py
+```
 
-commit 21  
-basic UI layout
+## Run Tests
 
-commit 22  
-login system
+```powershell
+.\.venv-1\Scripts\python.exe -m pytest -q
+```
 
-commit 23  
-home screen and player screen
+## How To Add Song
 
-commit 24  
-add favorite button
+1. ล็อกอินด้วยบัญชีที่เป็น `artist`
+2. เข้าหน้า `Add Song`
+3. กรอก `Song Title`, `Artist`, `Category`, `Album`
+4. กรอก `Lyrics` (ถ้าต้องการ)
+5. อัปโหลด `Cover Image`
+6. อัปโหลด `Audio File` เพื่อให้ระบบอ่าน `Duration` อัตโนมัติ
+7. กด `Add Song`
 
-commit 25  
-dynamic favorite list
+หมายเหตุ:
+- ถ้าไฟล์ `.mp4` เล่นไม่ได้ ให้ตรวจว่า install `ffpyplayer` แล้ว และ restart แอป
 
----
+## Current Limitations
 
-# 📚 Technologies Used
-
-Python  
-Kivy  
-ScreenManager  
-KV Language
-
----
-
-# 👨‍💻 Author
-
-Student Project  
-MiniSpotify Clone using Kivy
-
-commit 26  
-improve login screen UI  
-- add MiniSpotify logo on login page  
-- adjust layout spacing
-
-commit 27  
-fix text overlapping in UI  
-- adjust label height  
-- improve responsive layout
-
-commit 28  
-improve player UI  
-- better control buttons  
-- play / pause state update
-
-commit 29  
-favorite button enhancement  
-- heart icon changes when song is favorite  
-- visual feedback for user
-
-commit 30  
-improve My Music screen  
-- fix icon display  
-- improve library layout
-
-commit 31  
-update README documentation  
-- add project features  
-- add installation guide  
-- add project structure
-
----
-
-## 🎨 UI Improvements
-
-- Improved Player controls layout
-- Better icon alignment
-- Cleaner UI spacing
-
-## 🔍 Search System Update
-
-Search screen now includes
-
-- Popular search list
-- Search input UI
-- Navigation to player screen
-
-## 📊 Project Information
-
-MiniSpotify is a lightweight Kivy music player created for learning purposes.
-
-Features demonstrated in this project:
-
-- ScreenManager navigation
-- KV language UI design
-- Favorite song system
-- Basic audio playback
-
-## ✅ Final Notes
-
-MiniSpotify demonstrates a simple Spotify-like interface built with Python and Kivy.
-
-This project was created as part of a university programming assignment.
+- ข้อมูลเพลงที่เพิ่มเองและ favorite เก็บในหน่วยความจำ (in-memory) ระหว่างรันโปรแกรม ยังไม่ persist ลงไฟล์
+- ระบบค้นหาในหน้า Search ยังเป็น UI เป็นหลัก
