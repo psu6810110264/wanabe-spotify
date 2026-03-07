@@ -2,7 +2,6 @@ from kivy.uix.screenmanager import Screen
 
 
 class LoginScreen(Screen):
-
     def on_login(self):
         u = self.ids.username.text.strip()
         p = self.ids.password.text.strip()
@@ -36,7 +35,6 @@ class LoginScreen(Screen):
 
         self.ids.msg.text = "Login success!"
         self.manager.current = "home"
-
 
     def clear_fields(self):
         self.ids.username.text = ""

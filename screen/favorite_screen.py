@@ -1,9 +1,21 @@
 from kivy.uix.screenmanager import Screen
 
 
-class HomeScreen(Screen):
+class FavoriteScreen(Screen):
+    def go_home(self):
+        print("[Callback] favorite go_home triggered")
+        self.manager.current = "home"
+
+    def go_search(self):
+        print("[Callback] favorite go_search triggered")
+        self.manager.current = "search"
+
+    def go_favorite(self):
+        print("[Callback] favorite go_favorite triggered")
+        self.manager.current = "favorite"
+
     def open_player(self, song_id):
-        print(f"[Callback] open_player triggered with Song ID: {song_id}")
+        print(f"[Callback] favorite open_player triggered with Song ID: {song_id}")
 
         player_screen = self.manager.get_screen("player")
 
@@ -21,19 +33,3 @@ class HomeScreen(Screen):
             player_screen.artist_name = "Unknown Artist"
 
         self.manager.current = "player"
-
-    def go_home(self):
-        print("[Callback] go_home triggered")
-        self.manager.current = "home"
-
-    def go_search(self):
-        print("[Callback] go_search triggered")
-        self.manager.current = "search"
-
-    def go_favorite(self):
-        print("[Callback] go_favorite triggered")
-        self.manager.current = "favorite"
-
-    def logout(self):
-        print("[Callback] logout triggered")
-        self.manager.current = "login"

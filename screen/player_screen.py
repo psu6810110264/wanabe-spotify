@@ -1,7 +1,11 @@
+from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen
 
 
 class PlayerScreen(Screen):
+    song_title = StringProperty("Selected Song")
+    artist_name = StringProperty("Artist Name")
+
     def back_home(self):
         print("[Callback] back_home triggered")
         self.manager.current = "home"

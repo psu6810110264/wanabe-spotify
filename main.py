@@ -1,18 +1,12 @@
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager
 
 from screen.login_screen import LoginScreen
 from screen.home_screen import HomeScreen
 from screen.player_screen import PlayerScreen
-
-
-class SearchScreen(Screen):
-    pass
-
-
-class FavoriteScreen(Screen):
-    pass
+from screen.search_screen import SearchScreen
+from screen.favorite_screen import FavoriteScreen
 
 
 class RootWidget(ScreenManager):

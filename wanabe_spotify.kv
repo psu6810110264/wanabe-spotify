@@ -491,7 +491,7 @@ RootWidget:
                 background_color: 0.45, 0.40, 0.55, 1
                 color: 1, 0.4, 0.8, 1
                 bold: True
-                on_release: app.root.current = "home"
+                on_release: root.go_home()
 
             Button:
                 text: "Search"
@@ -499,7 +499,7 @@ RootWidget:
                 background_down: ""
                 background_color: 0.14, 0.00, 0.25, 1
                 color: 0.85, 0.85, 0.85, 1
-                on_release: app.root.current = "search"
+                on_release: root.go_search()
 
             Button:
                 text: "Favorite"
@@ -507,7 +507,7 @@ RootWidget:
                 background_down: ""
                 background_color: 0.14, 0.00, 0.25, 1
                 color: 0.85, 0.85, 0.85, 1
-                on_release: app.root.current = "favorite"
+                on_release: root.go_favorite()
 
 
 <PlayerScreen>:
@@ -548,14 +548,14 @@ RootWidget:
             bold: True
 
         Label:
-            text: "Selected Song"
+            text: root.song_title
             font_size: 20
             color: 0.85, 0.85, 0.9, 1
             size_hint_y: None
             height: 30
 
         Label:
-            text: "Artist Name"
+            text: root.artist_name
             font_size: 16
             color: 1, 0.45, 0.75, 1
             size_hint_y: None
@@ -700,7 +700,7 @@ RootWidget:
                 background_down: ""
                 background_color: 0.14, 0.00, 0.25, 1
                 color: 0.85, 0.85, 0.85, 1
-                on_release: app.root.current = "home"
+                on_release: root.go_home()
 
             Button:
                 text: "Search"
@@ -709,7 +709,7 @@ RootWidget:
                 background_color: 0.45, 0.40, 0.55, 1
                 color: 1, 0.4, 0.8, 1
                 bold: True
-                on_release: app.root.current = "search"
+                on_release: root.go_search()
 
             Button:
                 text: "Favorite"
@@ -717,7 +717,7 @@ RootWidget:
                 background_down: ""
                 background_color: 0.14, 0.00, 0.25, 1
                 color: 0.85, 0.85, 0.85, 1
-                on_release: app.root.current = "favorite"
+                on_release: root.go_favorite()
 
 
 <FavoriteScreen>:
@@ -760,7 +760,7 @@ RootWidget:
             background_down: ""
             background_color: 0.12, 0.12, 0.14, 1
             color: 1, 1, 1, 1
-            on_release: app.root.current = "player"
+            on_release: root.open_player("song_1")
 
         Button:
             text: "Electric Soul"
@@ -768,7 +768,7 @@ RootWidget:
             background_down: ""
             background_color: 0.12, 0.12, 0.14, 1
             color: 1, 1, 1, 1
-            on_release: app.root.current = "player"
+            on_release: root.open_player("song_3")
 
         Button:
             text: "Summer Vibes"
@@ -776,7 +776,7 @@ RootWidget:
             background_down: ""
             background_color: 0.12, 0.12, 0.14, 1
             color: 1, 1, 1, 1
-            on_release: app.root.current = "player"
+            on_release: root.open_player("song_2")
 
         Widget:
 
@@ -799,7 +799,7 @@ RootWidget:
                 background_down: ""
                 background_color: 0.14, 0.00, 0.25, 1
                 color: 0.85, 0.85, 0.85, 1
-                on_release: app.root.current = "home"
+                on_release: root.go_home()
 
             Button:
                 text: "Search"
@@ -807,7 +807,7 @@ RootWidget:
                 background_down: ""
                 background_color: 0.14, 0.00, 0.25, 1
                 color: 0.85, 0.85, 0.85, 1
-                on_release: app.root.current = "search"
+                on_release: root.go_search()
 
             Button:
                 text: "Favorite"
@@ -816,4 +816,4 @@ RootWidget:
                 background_color: 0.45, 0.40, 0.55, 1
                 color: 1, 0.4, 0.8, 1
                 bold: True
-                on_release: app.root.current = "favorite"
+                on_release: root.go_favorite()
