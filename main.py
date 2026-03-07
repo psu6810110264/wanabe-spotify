@@ -10,7 +10,10 @@ from screen.favorite_screen import FavoriteScreen
 
 
 class RootWidget(ScreenManager):
-    pass
+
+    def logout(self):
+        print("[Callback] logout triggered")
+        self.current = "login"
 
 
 class WanabeSpotifyApp(App):
