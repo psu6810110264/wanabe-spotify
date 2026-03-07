@@ -1,32 +1,28 @@
-from kivymd.app import MDApp
+from kivy.app import App
 from kivy.lang import Builder
-from kivy.core.window import Window
-from kivymd.uix.card import MDCard
-from kivy.properties import StringProperty
+from kivy.uix.screenmanager import ScreenManager, Screen
 
-# กำหนดขนาดหน้าจอจำลองมือถือ
-Window.size = (360, 640)
+from screen.login_screen import LoginScreen
+from screen.home_screen import HomeScreen
+from screen.player_screen import PlayerScreen
 
-# สร้าง Class สำหรับการ์ดเพลง (แถวยาว)
-class SongCard(MDCard):
-    title = StringProperty("")
-    artist = StringProperty("")
-    rank = StringProperty("")
-    duration = StringProperty("")
-    image_icon = StringProperty("music-note")
 
-# สร้าง Class สำหรับการ์ดแนะนำ (สี่เหลี่ยมจัตุรัส)
-class RecommendCard(MDCard):
-    title = StringProperty("")
-    subtitle = StringProperty("")
-    image_icon = StringProperty("album")
+class SearchScreen(Screen):
+    pass
 
-class MiniSpotifyApp(MDApp):
+
+class FavoriteScreen(Screen):
+    pass
+
+
+class RootWidget(ScreenManager):
+    pass
+
+
+class WanabeSpotifyApp(App):
     def build(self):
-        # ตั้งค่าธีมหลัก
-        self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "DeepPurple" # สีหลักม่วง
-        return Builder.load_file('mini_spotify.kv')
+        return Builder.load_file("wanabe_spotify.kv")
 
-if __name__ == '__main__':
-    MiniSpotifyApp().run()
+
+if __name__ == "__main__":
+    WanabeSpotifyApp().run()
