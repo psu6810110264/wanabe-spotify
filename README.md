@@ -12,6 +12,29 @@
 
 แอป Music Player ที่พัฒนาด้วย Python + Kivy/KivyMD โดยมีระบบล็อกอิน, เล่นเพลง, favorites และเพิ่มเพลงเองได้จากหน้า UI
 
+นาย ภูบดินทร์ เกื้อรอด 6810110264  
+ทำ front-end และระบบจัดการข้อมูลเพลง (memberA)
+
+	screen/
+		login_screen.py
+		favorite_screen.py
+	data_store.py
+	wanabe_spotify.kv
+
+สิ่งที่พัฒนาเพิ่มเติม
+
+- พัฒนาหน้า **Login Screen**
+- พัฒนาหน้า **Favorite Screen** สำหรับแสดงเพลงที่กดหัวใจ
+- สร้างระบบ **favorite song management**
+- สร้างไฟล์ **data_store.py** สำหรับจัดการข้อมูลเพลงและ favorite
+- เพิ่ม **song file mapping** สำหรับเชื่อมชื่อเพลงกับไฟล์เสียง
+- เพิ่มระบบ **dynamic favorite list** ที่โหลดข้อมูลเพลงอัตโนมัติ
+- ปรับปรุง **UI layout ใน wanabe_spotify.kv**
+- ปรับปรุง **Player UI และ Favorite state**
+- เพิ่ม **pytest test cases**
+- เพิ่ม **assets/music folder documentation**
+- ปรับปรุง **main.py entry point สำหรับ KivyMD project**
+
 ## Features
 
 - ระบบ `Login/Register` พร้อมบทบาทผู้ใช้ (`artist`, `listener`)
