@@ -15,12 +15,6 @@
 นาย ภูบดินทร์ เกื้อรอด 6810110264  
 ทำ front-end และระบบจัดการข้อมูลเพลง (memberA)
 
-	screen/
-		login_screen.py
-		favorite_screen.py
-	data_store.py
-	wanabe_spotify.kv
-
 สิ่งที่พัฒนาเพิ่มเติม
 
 - พัฒนาหน้า **Login Screen**
