@@ -1,4 +1,14 @@
+#หน้าที่ของแต่ล่ะคน
 # Wanabe Spotify (grape music)
+นาย ธฤษณุ เคารพาพงศ์ 6810110147
+ทำ b-dev
+	screen/
+		add_song_screen.py
+		home_screen.py
+		player_screen.py
+		search_screen.py
+	main.py
+	wanabe_spotify.kv
 
 แอป Music Player ที่พัฒนาด้วย Python + Kivy/KivyMD โดยมีระบบล็อกอิน, เล่นเพลง, favorites และเพิ่มเพลงเองได้จากหน้า UI
 
